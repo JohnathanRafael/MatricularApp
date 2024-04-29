@@ -1,7 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:routefly/routefly.dart';
 
-import 'app/app_page.dart' as a0;
+import 'app/login/login_page.dart' as a0;
 import 'app/home/home_page.dart' as a1;
+
+@override
+Widget build(BuildContext context) {
+  return CupertinoApp.router(
+    routerConfig: Routefly.routerConfig(
+      routes: routes,
+      routeBuilder: (context, settings, child) {
+        return CupertinoPageRoute(
+          settings: settings, // !! IMPORTANT !!
+          builder: (context) => child,
+        );
+      },
+    ),
+  );
+}
 
 List<RouteEntity> get routes => [
   RouteEntity(
@@ -25,6 +41,8 @@ List<RouteEntity> get routes => [
 ];
 
 const routePaths = (
-  path: '/',
+  login: '/',
   home: '/home',
 );
+
+

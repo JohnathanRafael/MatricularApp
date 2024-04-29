@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: Routefly.routerConfig(
         routes: routes, // GENERATED
-        initialPath: routePaths.path,
+        notFoundPath: '/not-found',
+        initialPath: routePaths.login,
         routeBuilder: (context, settings, child) {
           return MaterialPageRoute(
             settings: settings, // !! IMPORTANT !!
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
           );
         },
       ),
-      title: 'Flutter Demo',
+      title: 'Matricular',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
@@ -36,29 +37,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Login extends StatefulWidget {
-  const Login({super.key, required this.title});
 
-  final String title;
-
-  @override
-  State<Login> createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('Matricular'),
-      ),
-      body: const LoginForm(),
-    );
-  }
-}
 
 
 
