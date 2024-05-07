@@ -1,12 +1,24 @@
+
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
+import 'package:matricular/matricular.dart';
+import 'package:matricular_login/AlertMessage.dart';
+import 'package:matricular_login/routes.dart';
+import 'package:provider/provider.dart';
 import 'package:routefly/routefly.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:signals/signals.dart';
+
+import '../../SecureStorage.dart';
+import '../api/AppApi.dart';
+import '../utils/ConfigState.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key, required this.title});
-
-  final String title;
+  const Login({super.key});
 
   @override
   State<Login> createState() => _LoginState();
@@ -14,13 +26,12 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('Matricular'),
+        title: Text(''),
       ),
       body: const LoginForm(),
     );
@@ -30,15 +41,116 @@ class _LoginState extends State<Login> {
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
+  static Route<void> route() {
+    return MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (context) => MultiProvider(
+          providers: [
+            Provider(
+              create: (_) => context.read<ConfigState>(),
+              dispose: (_, instance) => instance.dispose(),
+            ),
+            Provider(create: (_) => context.read<AppAPI>())
+          ],
+          child: const LoginForm(),
+        )
+    );
+  }
+
   @override
   State<LoginForm> createState() => _LoginForm();
 }
 
 class _LoginForm extends State<LoginForm> {
+  final List<String> _camposErros = [];
+  final _CPF = TextEditingController();
+  final _Senha = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  late AppAPI appAPI;
+  late Matricular matricularAPI;
+
+  // Future<void> fetchSecureStorageData() async {
+  //    _secureStorage.getUserToken() ?? '';
+  // }
+
+
+  String? _validarCPF(String? text){
+    //implementar aqui validacao de CPF
+    if (text == null || text.isEmpty) {
+      _camposErros.add("CPF");
+      return 'Informe o CPF';
+    }
+    return null;
+  }
+
+  String? _validarSenha(String? text){
+    // implementar aqui validacao de senha
+    if(text == null || text.isEmpty){
+      _camposErros.add("Senha");
+      return "Informe a senha";
+    }
+    return null;
+  }
+
+  _clickLogin(BuildContext context) async {
+    final CPF = _CPF.text;
+    final senha = _Senha.text;
+    AlertMessage alertMessage = AlertMessage();
+    _camposErros.clear();
+
+    print("Login: $CPF , Senha: $senha " );
+
+    if(_formKey.currentState != null){
+      // se o form validate for invalido
+      if (!_formKey.currentState!.validate()){
+          showDialog(context: context,
+            builder: (context){
+              return alertMessage.alertaLogin(_camposErros, "inválido(a)", "Campos com erro", context);
+            },
+          );
+          return;
+        }
+
+        // se ele for valido
+        final authApi = matricularAPI.getAuthAPIApi();
+
+        var authoDTObuilder = AuthDTOBuilder();
+        authoDTObuilder.login = _CPF.text;
+        authoDTObuilder.senha = _Senha.text;
+
+
+        try {
+          final response = await authApi.login(authDTO: authoDTObuilder.build());
+          if(response.statusCode == 200){
+            // Singleton que guarda os dados de forma segura
+            appAPI.config.token.set(response.data!.accessToken!);
+            appAPI.config.userNome.set(response.data!.nome!);
+            Routefly.navigate('/home');
+          }
+
+        } on DioException catch (e) {
+          _camposErros.add("");
+          print(e);
+          showDialog(context: context,
+            builder: (context){
+              return alertMessage.alertaLogin(_camposErros, "Usuário não encontrado no sistema", "Usuário inválido",context);
+            },
+          );
+        };
+
+
+      }
+
+  }
+
+  validaFormLogin(){
+
+  }
 
   @override
   Widget build(BuildContext context) {
+    appAPI = context.read<AppAPI>();
+    matricularAPI = appAPI.api;
     // SingleChildScrollView(
     return SingleChildScrollView(
       child: Form(
@@ -69,14 +181,10 @@ class _LoginForm extends State<LoginForm> {
                       child: TextFormField(
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          hintText: 'E-mail',
+                          hintText: 'CPF',
                         ),
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
+                        controller: _CPF,
+                        validator: _validarCPF,
                       ),
                     ),
                   ),
@@ -88,15 +196,10 @@ class _LoginForm extends State<LoginForm> {
                         obscureText: true,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          hintText: 'Password',
+                          hintText: 'Senha',
                         ),
-                        validator: (String? value) {
-                          print(value);
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
+                          controller: _Senha,
+                          validator: _validarSenha,
                       ),
                     ),
                   ),
@@ -121,14 +224,7 @@ class _LoginForm extends State<LoginForm> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 5),
                       child: ElevatedButton(
-                        onPressed: () {
-                          // Validate will return true if the form is valid, or false if
-                          // the form is invalid.
-                          if (_formKey.currentState!.validate()) {
-                            Routefly.navigate('/home');
-                            // Process data.
-                          }
-                        },
+                        onPressed: () { _clickLogin(context); },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Theme.of(context).primaryColorLight,
                           shape: const RoundedRectangleBorder(

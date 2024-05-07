@@ -26,7 +26,7 @@ List<RouteEntity> get routes => [
     routeBuilder: (ctx, settings) => Routefly.defaultRouteBuilder(
       ctx,
       settings,
-      const a0.Login(title: '',),
+      const a0.Login(),
     ),
   ),
   RouteEntity(
