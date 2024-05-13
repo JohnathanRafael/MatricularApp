@@ -97,7 +97,6 @@ class _TurmaList extends State<TurmaListViewer>{
             },
             child: Icon(Icons.add),
             backgroundColor: Theme.of(context).primaryColorLight,
-              elevation: 8
           ),
         ]),
       ),
@@ -132,12 +131,4 @@ class _TurmaList extends State<TurmaListViewer>{
       return CircularProgressIndicator();
     }
   }
-
-
-
-  Text buildItemList(AsyncSnapshot<Response<BuiltList<TurmaDTO>>> snapshot, int index) {
-    return Text("nome:${snapshot.data!.data?[index]}");
-  }
-
-
 }
