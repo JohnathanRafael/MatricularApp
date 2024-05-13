@@ -91,6 +91,14 @@ class _TurmaList extends State<TurmaListViewer>{
                     }),
               ),
             ),
+          FloatingActionButton(
+            onPressed: () {
+              print("Incluir");
+            },
+            child: Icon(Icons.add),
+            backgroundColor: Theme.of(context).primaryColorLight,
+              elevation: 8
+          ),
         ]),
       ),
     );
@@ -99,47 +107,23 @@ class _TurmaList extends State<TurmaListViewer>{
 
   Widget buildListView(AsyncSnapshot<Response<BuiltList<TurmaDTO>>> snapshot) {
     if (snapshot.hasData) {
-      return ListView.builder(
-        itemCount: snapshot.data?.data?.length,
+      return ListView.separated(
+        itemCount: snapshot.data?.data?.length ?? 0,
+        separatorBuilder: (_,___) => Divider(),
         itemBuilder: (BuildContext context, int index) {
-          return Center(
-              child: Container(
-                //height: 100,
-                //width: 200,
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  color: Colors.blue.withAlpha(70),
-                  elevation: 10,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ListTile(
-                        leading: Icon(Icons.account_box, size: 60),
-                        title: Text("nome:${snapshot.data!.data?[index].nomeProfessor}",
-                            style: TextStyle(fontSize: 22.0)),
-                      ),
-                      ButtonBar(
-                        children: <Widget>[
-                          ElevatedButton(
-                            child: const Text('Editar'),
-                            onPressed: () {
-                              /* ... */
-                            },
-                          ),
-                          ElevatedButton(
-                            child: const Text('Excluir'),
-                            onPressed: () {
-                              /* ... */
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ));
+          return ListTile(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12))
+            ),
+            leading: Text("${snapshot.data!.data?[index].id}"),
+            title: Text("${snapshot.data!.data?[index].titulo}"),
+            trailing: Text("${snapshot.data!.data?[index].turno}"),
+            selected: false,
+            selectedTileColor: Theme.of(context).primaryColorLight,
+            onLongPress: () {
+              print("Pressionou");
+            },
+          );
         },
       );
     } else if (snapshot.hasError) {
@@ -148,6 +132,8 @@ class _TurmaList extends State<TurmaListViewer>{
       return CircularProgressIndicator();
     }
   }
+
+
 
   Text buildItemList(AsyncSnapshot<Response<BuiltList<TurmaDTO>>> snapshot, int index) {
     return Text("nome:${snapshot.data!.data?[index]}");

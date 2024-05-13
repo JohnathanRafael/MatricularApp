@@ -20,16 +20,15 @@ class HomePage extends StatefulWidget {
     return MaterialPageRoute(
         fullscreenDialog: true,
         builder: (context) => MultiProvider(
-          providers: [
-            Provider(
-              create: (_) => context.read<ConfigState>(),
-              dispose: (_, instance) => instance.dispose(),
-            ),
-            Provider(create: (_) => context.read<AppAPI>())
-          ],
-          child: const HomePage(),
-        )
-    );
+              providers: [
+                Provider(
+                  create: (_) => context.read<ConfigState>(),
+                  dispose: (_, instance) => instance.dispose(),
+                ),
+                Provider(create: (_) => context.read<AppAPI>())
+              ],
+              child: const HomePage(),
+            ));
   }
 
   @override
@@ -37,7 +36,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
-  
   _sair(BuildContext context) async {
     await SecureStorage().deleteAll();
     Routefly.navigate('/login');
@@ -49,12 +47,14 @@ class _HomePage extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         centerTitle: true,
         title: Text('Home'),
-        leading: IconButton(
-          icon: Icon(Icons.logout_rounded),
-          onPressed: () {
-            _sair(context);
-          },
-        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout_rounded),
+            onPressed: () {
+              _sair(context);
+            },
+          ),
+        ],
       ),
       body: const HomeBody(),
     );
@@ -81,7 +81,7 @@ class _HomeBody extends State<HomeBody> {
     iniciarUserNome();
   }
 
-  void iniciarUserNome(){
+  void iniciarUserNome() {
     userNome.set(appAPI.config.userNome.toString());
   }
 
@@ -123,6 +123,7 @@ class _HomeBody extends State<HomeBody> {
         height: MediaQuery.of(context).size.height - 120,
         child: Column(children: [
           Flexible(
+            child: Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
@@ -132,6 +133,7 @@ class _HomeBody extends State<HomeBody> {
                         fontWeight: FontWeight.w600,
                       )),
                 ),
+              ),
             ),
           ),
           Flexible(
