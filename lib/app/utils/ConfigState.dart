@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:matricular_login/SecureStorage.dart';
+import 'package:matricular_login/app/utils/SecureStorage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signals/signals.dart';
 import 'package:signals/signals_flutter.dart';
@@ -25,7 +25,7 @@ class ConfigState {
 
     SecureStorage().getUserName().then((value) {
       if(value!="") {
-        token.set(value!);
+        userNome.set(value!);
       }
     });
 

@@ -40,7 +40,7 @@ dependencies:
   shared_preferences: ^2.2.2
   openapi_generator_annotations: ^5.0.2
   matricular:
-    path: maricularApi
+    path: matricularApi
   dio: ^5.4.2+1
   provider: ^6.1.2
   flutter_secure_storage: ^9.0.0

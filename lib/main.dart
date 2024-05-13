@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:matricular_login/SecureStorage.dart';
+import 'package:matricular_login/app/utils/SecureStorage.dart';
 import 'package:provider/provider.dart';
 import 'package:routefly/routefly.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +11,7 @@ import 'app/utils/ConfigState.dart';
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   // url.set(prefs.getString('http://10.200.15.201:8080') ?? 'http://192.168.3.8:8080');
-  await SecureStorage().setURL("http://10.200.15.201:8080");
+  await SecureStorage().setURL("http://192.168.3.8:8080");
 
   final state = ConfigState();
 

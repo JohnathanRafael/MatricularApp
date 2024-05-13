@@ -13,12 +13,28 @@ import 'package:routefly/routefly.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signals/signals.dart';
 
-import '../../SecureStorage.dart';
+import '../utils/SecureStorage.dart';
 import '../api/AppApi.dart';
 import '../utils/ConfigState.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
+
+  static Route<void> route() {
+    return MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (context) => MultiProvider(
+          providers: [
+            Provider(
+              create: (_) => context.read<ConfigState>(),
+              dispose: (_, instance) => instance.dispose(),
+            ),
+            Provider(create: (_) => context.read<AppAPI>())
+          ],
+          child: const Login(),
+        )
+    );
+  }
 
   @override
   State<Login> createState() => _LoginState();
@@ -40,22 +56,6 @@ class _LoginState extends State<Login> {
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
-
-  static Route<void> route() {
-    return MaterialPageRoute(
-        fullscreenDialog: true,
-        builder: (context) => MultiProvider(
-          providers: [
-            Provider(
-              create: (_) => context.read<ConfigState>(),
-              dispose: (_, instance) => instance.dispose(),
-            ),
-            Provider(create: (_) => context.read<AppAPI>())
-          ],
-          child: const LoginForm(),
-        )
-    );
-  }
 
   @override
   State<LoginForm> createState() => _LoginForm();

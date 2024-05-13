@@ -427,7 +427,7 @@ packages:
   matricular:
     dependency: "direct main"
     description:
-      path: maricularApi
+      path: matricularApi
       relative: true
     source: path
     version: "1.0.0"
