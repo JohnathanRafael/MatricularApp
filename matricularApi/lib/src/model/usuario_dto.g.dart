@@ -10,6 +10,8 @@ const UsuarioDTOCargoEnum _$usuarioDTOCargoEnum_ADMIN =
     const UsuarioDTOCargoEnum._('ADMIN');
 const UsuarioDTOCargoEnum _$usuarioDTOCargoEnum_SECRETARIA =
     const UsuarioDTOCargoEnum._('SECRETARIA');
+const UsuarioDTOCargoEnum _$usuarioDTOCargoEnum_DIRETORA =
+    const UsuarioDTOCargoEnum._('DIRETORA');
 const UsuarioDTOCargoEnum _$usuarioDTOCargoEnum_COORDENADORA =
     const UsuarioDTOCargoEnum._('COORDENADORA');
 
@@ -19,6 +21,8 @@ UsuarioDTOCargoEnum _$usuarioDTOCargoEnumValueOf(String name) {
       return _$usuarioDTOCargoEnum_ADMIN;
     case 'SECRETARIA':
       return _$usuarioDTOCargoEnum_SECRETARIA;
+    case 'DIRETORA':
+      return _$usuarioDTOCargoEnum_DIRETORA;
     case 'COORDENADORA':
       return _$usuarioDTOCargoEnum_COORDENADORA;
     default:
@@ -30,6 +34,7 @@ final BuiltSet<UsuarioDTOCargoEnum> _$usuarioDTOCargoEnumValues =
     new BuiltSet<UsuarioDTOCargoEnum>(const <UsuarioDTOCargoEnum>[
   _$usuarioDTOCargoEnum_ADMIN,
   _$usuarioDTOCargoEnum_SECRETARIA,
+  _$usuarioDTOCargoEnum_DIRETORA,
   _$usuarioDTOCargoEnum_COORDENADORA,
 ]);
 
@@ -41,11 +46,13 @@ class _$UsuarioDTOCargoEnumSerializer
   static const Map<String, Object> _toWire = const <String, Object>{
     'ADMIN': 'ADMIN',
     'SECRETARIA': 'SECRETARIA',
+    'DIRETORA': 'DIRETORA',
     'COORDENADORA': 'COORDENADORA',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
     'ADMIN': 'ADMIN',
     'SECRETARIA': 'SECRETARIA',
+    'DIRETORA': 'DIRETORA',
     'COORDENADORA': 'COORDENADORA',
   };
 

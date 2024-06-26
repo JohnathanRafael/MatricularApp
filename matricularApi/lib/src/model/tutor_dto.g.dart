@@ -16,6 +16,10 @@ const TutorDTOVinculoEnum _$tutorDTOVinculoEnum_VIZINHO =
     const TutorDTOVinculoEnum._('VIZINHO');
 const TutorDTOVinculoEnum _$tutorDTOVinculoEnum_AVO =
     const TutorDTOVinculoEnum._('AVO');
+const TutorDTOVinculoEnum _$tutorDTOVinculoEnum_TIA =
+    const TutorDTOVinculoEnum._('TIA');
+const TutorDTOVinculoEnum _$tutorDTOVinculoEnum_BISAVO =
+    const TutorDTOVinculoEnum._('BISAVO');
 
 TutorDTOVinculoEnum _$tutorDTOVinculoEnumValueOf(String name) {
   switch (name) {
@@ -29,8 +33,12 @@ TutorDTOVinculoEnum _$tutorDTOVinculoEnumValueOf(String name) {
       return _$tutorDTOVinculoEnum_VIZINHO;
     case 'AVO':
       return _$tutorDTOVinculoEnum_AVO;
+    case 'TIA':
+      return _$tutorDTOVinculoEnum_TIA;
+    case 'BISAVO':
+      return _$tutorDTOVinculoEnum_BISAVO;
     default:
-      return _$tutorDTOVinculoEnum_AVO;
+      return _$tutorDTOVinculoEnum_BISAVO;
   }
 }
 
@@ -41,6 +49,8 @@ final BuiltSet<TutorDTOVinculoEnum> _$tutorDTOVinculoEnumValues =
   _$tutorDTOVinculoEnum_TIO,
   _$tutorDTOVinculoEnum_VIZINHO,
   _$tutorDTOVinculoEnum_AVO,
+  _$tutorDTOVinculoEnum_TIA,
+  _$tutorDTOVinculoEnum_BISAVO,
 ]);
 
 Serializer<TutorDTOVinculoEnum> _$tutorDTOVinculoEnumSerializer =
@@ -54,6 +64,8 @@ class _$TutorDTOVinculoEnumSerializer
     'TIO': 'TIO',
     'VIZINHO': 'VIZINHO',
     'AVO': 'AVO',
+    'TIA': 'TIA',
+    'BISAVO': 'BISAVO',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
     'PAI': 'PAI',
@@ -61,6 +73,8 @@ class _$TutorDTOVinculoEnumSerializer
     'TIO': 'TIO',
     'VIZINHO': 'VIZINHO',
     'AVO': 'AVO',
+    'TIA': 'TIA',
+    'BISAVO': 'BISAVO',
   };
 
   @override
@@ -84,7 +98,9 @@ class _$TutorDTO extends TutorDTO {
   @override
   final String? cpf;
   @override
-  final String? empresaTelefone;
+  final String? telefoneFixoEmpresarial;
+  @override
+  final String? telefoneCelularEmpresarial;
   @override
   final String? empresaCnpj;
   @override
@@ -92,27 +108,37 @@ class _$TutorDTO extends TutorDTO {
   @override
   final String? profissao;
   @override
-  final bool? telefoneWhatsapp;
-  @override
-  final String? pessoaNome;
+  final String? nomeTutor;
   @override
   final String? pessoaTelefone;
   @override
+  final Date? dataNascimento;
+  @override
   final TutorDTOVinculoEnum? vinculo;
+  @override
+  final bool? casado;
+  @override
+  final bool? moraComConjuge;
+  @override
+  final String? telefoneReserva;
 
   factory _$TutorDTO([void Function(TutorDTOBuilder)? updates]) =>
       (new TutorDTOBuilder()..update(updates))._build();
 
   _$TutorDTO._(
       {this.cpf,
-      this.empresaTelefone,
+      this.telefoneFixoEmpresarial,
+      this.telefoneCelularEmpresarial,
       this.empresaCnpj,
       this.empresaNome,
       this.profissao,
-      this.telefoneWhatsapp,
-      this.pessoaNome,
+      this.nomeTutor,
       this.pessoaTelefone,
-      this.vinculo})
+      this.dataNascimento,
+      this.vinculo,
+      this.casado,
+      this.moraComConjuge,
+      this.telefoneReserva})
       : super._();
 
   @override
@@ -127,28 +153,36 @@ class _$TutorDTO extends TutorDTO {
     if (identical(other, this)) return true;
     return other is TutorDTO &&
         cpf == other.cpf &&
-        empresaTelefone == other.empresaTelefone &&
+        telefoneFixoEmpresarial == other.telefoneFixoEmpresarial &&
+        telefoneCelularEmpresarial == other.telefoneCelularEmpresarial &&
         empresaCnpj == other.empresaCnpj &&
         empresaNome == other.empresaNome &&
         profissao == other.profissao &&
-        telefoneWhatsapp == other.telefoneWhatsapp &&
-        pessoaNome == other.pessoaNome &&
+        nomeTutor == other.nomeTutor &&
         pessoaTelefone == other.pessoaTelefone &&
-        vinculo == other.vinculo;
+        dataNascimento == other.dataNascimento &&
+        vinculo == other.vinculo &&
+        casado == other.casado &&
+        moraComConjuge == other.moraComConjuge &&
+        telefoneReserva == other.telefoneReserva;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, cpf.hashCode);
-    _$hash = $jc(_$hash, empresaTelefone.hashCode);
+    _$hash = $jc(_$hash, telefoneFixoEmpresarial.hashCode);
+    _$hash = $jc(_$hash, telefoneCelularEmpresarial.hashCode);
     _$hash = $jc(_$hash, empresaCnpj.hashCode);
     _$hash = $jc(_$hash, empresaNome.hashCode);
     _$hash = $jc(_$hash, profissao.hashCode);
-    _$hash = $jc(_$hash, telefoneWhatsapp.hashCode);
-    _$hash = $jc(_$hash, pessoaNome.hashCode);
+    _$hash = $jc(_$hash, nomeTutor.hashCode);
     _$hash = $jc(_$hash, pessoaTelefone.hashCode);
+    _$hash = $jc(_$hash, dataNascimento.hashCode);
     _$hash = $jc(_$hash, vinculo.hashCode);
+    _$hash = $jc(_$hash, casado.hashCode);
+    _$hash = $jc(_$hash, moraComConjuge.hashCode);
+    _$hash = $jc(_$hash, telefoneReserva.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -157,14 +191,18 @@ class _$TutorDTO extends TutorDTO {
   String toString() {
     return (newBuiltValueToStringHelper(r'TutorDTO')
           ..add('cpf', cpf)
-          ..add('empresaTelefone', empresaTelefone)
+          ..add('telefoneFixoEmpresarial', telefoneFixoEmpresarial)
+          ..add('telefoneCelularEmpresarial', telefoneCelularEmpresarial)
           ..add('empresaCnpj', empresaCnpj)
           ..add('empresaNome', empresaNome)
           ..add('profissao', profissao)
-          ..add('telefoneWhatsapp', telefoneWhatsapp)
-          ..add('pessoaNome', pessoaNome)
+          ..add('nomeTutor', nomeTutor)
           ..add('pessoaTelefone', pessoaTelefone)
-          ..add('vinculo', vinculo))
+          ..add('dataNascimento', dataNascimento)
+          ..add('vinculo', vinculo)
+          ..add('casado', casado)
+          ..add('moraComConjuge', moraComConjuge)
+          ..add('telefoneReserva', telefoneReserva))
         .toString();
   }
 }
@@ -176,10 +214,15 @@ class TutorDTOBuilder implements Builder<TutorDTO, TutorDTOBuilder> {
   String? get cpf => _$this._cpf;
   set cpf(String? cpf) => _$this._cpf = cpf;
 
-  String? _empresaTelefone;
-  String? get empresaTelefone => _$this._empresaTelefone;
-  set empresaTelefone(String? empresaTelefone) =>
-      _$this._empresaTelefone = empresaTelefone;
+  String? _telefoneFixoEmpresarial;
+  String? get telefoneFixoEmpresarial => _$this._telefoneFixoEmpresarial;
+  set telefoneFixoEmpresarial(String? telefoneFixoEmpresarial) =>
+      _$this._telefoneFixoEmpresarial = telefoneFixoEmpresarial;
+
+  String? _telefoneCelularEmpresarial;
+  String? get telefoneCelularEmpresarial => _$this._telefoneCelularEmpresarial;
+  set telefoneCelularEmpresarial(String? telefoneCelularEmpresarial) =>
+      _$this._telefoneCelularEmpresarial = telefoneCelularEmpresarial;
 
   String? _empresaCnpj;
   String? get empresaCnpj => _$this._empresaCnpj;
@@ -193,23 +236,37 @@ class TutorDTOBuilder implements Builder<TutorDTO, TutorDTOBuilder> {
   String? get profissao => _$this._profissao;
   set profissao(String? profissao) => _$this._profissao = profissao;
 
-  bool? _telefoneWhatsapp;
-  bool? get telefoneWhatsapp => _$this._telefoneWhatsapp;
-  set telefoneWhatsapp(bool? telefoneWhatsapp) =>
-      _$this._telefoneWhatsapp = telefoneWhatsapp;
-
-  String? _pessoaNome;
-  String? get pessoaNome => _$this._pessoaNome;
-  set pessoaNome(String? pessoaNome) => _$this._pessoaNome = pessoaNome;
+  String? _nomeTutor;
+  String? get nomeTutor => _$this._nomeTutor;
+  set nomeTutor(String? nomeTutor) => _$this._nomeTutor = nomeTutor;
 
   String? _pessoaTelefone;
   String? get pessoaTelefone => _$this._pessoaTelefone;
   set pessoaTelefone(String? pessoaTelefone) =>
       _$this._pessoaTelefone = pessoaTelefone;
 
+  Date? _dataNascimento;
+  Date? get dataNascimento => _$this._dataNascimento;
+  set dataNascimento(Date? dataNascimento) =>
+      _$this._dataNascimento = dataNascimento;
+
   TutorDTOVinculoEnum? _vinculo;
   TutorDTOVinculoEnum? get vinculo => _$this._vinculo;
   set vinculo(TutorDTOVinculoEnum? vinculo) => _$this._vinculo = vinculo;
+
+  bool? _casado;
+  bool? get casado => _$this._casado;
+  set casado(bool? casado) => _$this._casado = casado;
+
+  bool? _moraComConjuge;
+  bool? get moraComConjuge => _$this._moraComConjuge;
+  set moraComConjuge(bool? moraComConjuge) =>
+      _$this._moraComConjuge = moraComConjuge;
+
+  String? _telefoneReserva;
+  String? get telefoneReserva => _$this._telefoneReserva;
+  set telefoneReserva(String? telefoneReserva) =>
+      _$this._telefoneReserva = telefoneReserva;
 
   TutorDTOBuilder() {
     TutorDTO._defaults(this);
@@ -219,14 +276,18 @@ class TutorDTOBuilder implements Builder<TutorDTO, TutorDTOBuilder> {
     final $v = _$v;
     if ($v != null) {
       _cpf = $v.cpf;
-      _empresaTelefone = $v.empresaTelefone;
+      _telefoneFixoEmpresarial = $v.telefoneFixoEmpresarial;
+      _telefoneCelularEmpresarial = $v.telefoneCelularEmpresarial;
       _empresaCnpj = $v.empresaCnpj;
       _empresaNome = $v.empresaNome;
       _profissao = $v.profissao;
-      _telefoneWhatsapp = $v.telefoneWhatsapp;
-      _pessoaNome = $v.pessoaNome;
+      _nomeTutor = $v.nomeTutor;
       _pessoaTelefone = $v.pessoaTelefone;
+      _dataNascimento = $v.dataNascimento;
       _vinculo = $v.vinculo;
+      _casado = $v.casado;
+      _moraComConjuge = $v.moraComConjuge;
+      _telefoneReserva = $v.telefoneReserva;
       _$v = null;
     }
     return this;
@@ -250,14 +311,18 @@ class TutorDTOBuilder implements Builder<TutorDTO, TutorDTOBuilder> {
     final _$result = _$v ??
         new _$TutorDTO._(
             cpf: cpf,
-            empresaTelefone: empresaTelefone,
+            telefoneFixoEmpresarial: telefoneFixoEmpresarial,
+            telefoneCelularEmpresarial: telefoneCelularEmpresarial,
             empresaCnpj: empresaCnpj,
             empresaNome: empresaNome,
             profissao: profissao,
-            telefoneWhatsapp: telefoneWhatsapp,
-            pessoaNome: pessoaNome,
+            nomeTutor: nomeTutor,
             pessoaTelefone: pessoaTelefone,
-            vinculo: vinculo);
+            dataNascimento: dataNascimento,
+            vinculo: vinculo,
+            casado: casado,
+            moraComConjuge: moraComConjuge,
+            telefoneReserva: telefoneReserva);
     replace(_$result);
     return _$result;
   }

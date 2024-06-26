@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **horaFim** | **String** |  | [optional] 
 **telefoneProfessor** | **String** |  | [optional] 
 **quantidadeAlunos** | **int** |  | [optional] 
+**alunos** | [**BuiltList&lt;MatriculaListagemDTO&gt;**](MatriculaListagemDTO.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

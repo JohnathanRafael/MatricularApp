@@ -9,6 +9,7 @@ part of 'serializers.dart';
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AdvertenciaDTO.serializer)
       ..add(AuthDTO.serializer)
+      ..add(ControlePeriodoMatriculaDTO.serializer)
       ..add(CredencialDTO.serializer)
       ..add(DocumentoMatriculaDTO.serializer)
       ..add(DocumentoMatriculaDTOTipoDocumentoEnum.serializer)
@@ -16,11 +17,15 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(FieldResponse.serializer)
       ..add(ISearchFieldDataObject.serializer)
       ..add(InformacoesMatriculaDTO.serializer)
+      ..add(MatriculaControllerIncluirComDocumentosRequest.serializer)
       ..add(MatriculaDTO.serializer)
       ..add(MatriculaDTOStatusEnum.serializer)
+      ..add(MatriculaListagemDTO.serializer)
+      ..add(MatriculaVisualizarDTO.serializer)
       ..add(MessageResponse.serializer)
       ..add(NecessidadeEspecialDTO.serializer)
       ..add(PageAdvertenciaDTO.serializer)
+      ..add(PageControlePeriodoMatriculaDTO.serializer)
       ..add(PageEnderecoDTO.serializer)
       ..add(PageInformacoesMatriculaDTO.serializer)
       ..add(PageMatriculaDTO.serializer)
@@ -46,12 +51,18 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(TurmaDTOTurnoEnum.serializer)
       ..add(TutorDTO.serializer)
       ..add(TutorDTOVinculoEnum.serializer)
+      ..add(UsuarioAlterarDTO.serializer)
+      ..add(UsuarioAlterarDTOCargoEnum.serializer)
       ..add(UsuarioDTO.serializer)
       ..add(UsuarioDTOCargoEnum.serializer)
       ..add(UsuarioSenhaDTO.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(AdvertenciaDTO)]),
           () => new ListBuilder<AdvertenciaDTO>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(ControlePeriodoMatriculaDTO)]),
+          () => new ListBuilder<ControlePeriodoMatriculaDTO>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(EnderecoDTO)]),
           () => new ListBuilder<EnderecoDTO>())
@@ -74,6 +85,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
           () => new ListBuilder<MatriculaDTO>())
       ..addBuilderFactory(
           const FullType(
+              BuiltList, const [const FullType(MatriculaListagemDTO)]),
+          () => new ListBuilder<MatriculaListagemDTO>())
+      ..addBuilderFactory(
+          const FullType(
               BuiltList, const [const FullType(NecessidadeEspecialDTO)]),
           () => new ListBuilder<NecessidadeEspecialDTO>())
       ..addBuilderFactory(
@@ -88,6 +103,28 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(NecessidadeEspecialDTO)]),
+          () => new ListBuilder<NecessidadeEspecialDTO>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(AdvertenciaDTO)]),
+          () => new ListBuilder<AdvertenciaDTO>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(TurmaDTO)]),
           () => new ListBuilder<TurmaDTO>())
@@ -111,6 +148,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(DocumentoMatriculaDTO)]),
           () => new ListBuilder<DocumentoMatriculaDTO>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Uint8List)]),
+          () => new ListBuilder<Uint8List>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(UsuarioDTO)]),
           () => new ListBuilder<UsuarioDTO>()))

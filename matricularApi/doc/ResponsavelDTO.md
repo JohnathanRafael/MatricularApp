@@ -14,7 +14,6 @@ Name | Type | Description | Notes
 **nomeMatricula** | **String** |  | [optional] 
 **vinculo** | **String** |  | [optional] 
 **tutor** | **bool** |  | [optional] 
-**chavePub** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**usuarioControllerListAllPage**](UsuarioControllerApi.md#usuariocontrollerlistallpage) | **GET** /api/v1/usuario/page | 
 [**usuarioControllerListAllWithSort**](UsuarioControllerApi.md#usuariocontrollerlistallwithsort) | **GET** /api/v1/usuario/sort/{field} | 
 [**usuarioControllerListUsuariosWithPagination**](UsuarioControllerApi.md#usuariocontrollerlistusuarioswithpagination) | **GET** /api/v1/usuario/pagination/{offset}/{pageSize} | 
+[**usuarioControllerNovoAlterar**](UsuarioControllerApi.md#usuariocontrollernovoalterar) | **PUT** /api/v1/usuario/alterar/{id} | 
 [**usuarioControllerObterPorId**](UsuarioControllerApi.md#usuariocontrollerobterporid) | **GET** /api/v1/usuario/{id} | 
 [**usuarioControllerRedefinirSenha**](UsuarioControllerApi.md#usuariocontrollerredefinirsenha) | **POST** /api/v1/usuario/redefinir-senha | 
 [**usuarioControllerRemover**](UsuarioControllerApi.md#usuariocontrollerremover) | **DELETE** /api/v1/usuario/{id} | 
@@ -25,7 +26,7 @@ Method | HTTP request | Description
 
 
 # **usuarioControllerAlterar**
-> usuarioControllerAlterar(id, usuarioDTO)
+> UsuarioDTO usuarioControllerAlterar(id, usuarioDTO)
 
 
 
@@ -40,7 +41,8 @@ final int id = 789; // int |
 final UsuarioDTO usuarioDTO = ; // UsuarioDTO | 
 
 try {
-    api.usuarioControllerAlterar(id, usuarioDTO);
+    final response = api.usuarioControllerAlterar(id, usuarioDTO);
+    print(response);
 } catch on DioException (e) {
     print('Exception when calling UsuarioControllerApi->usuarioControllerAlterar: $e\n');
 }
@@ -55,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**UsuarioDTO**](UsuarioDTO.md)
 
 ### Authorization
 
@@ -111,7 +113,7 @@ void (empty response body)
 
 
 
-Método utilizado para realizar a inclusão de um entidade
+Método utilizado para altlerar os dados de uma entidiade
 
 ### Example
 ```dart
@@ -145,7 +147,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -313,6 +315,50 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **usuarioControllerNovoAlterar**
+> usuarioControllerNovoAlterar(id, usuarioAlterarDTO)
+
+
+
+Método utilizado para altlerar os dados de uma entidiade
+
+### Example
+```dart
+import 'package:matricular/api.dart';
+
+final api = Matricular().getUsuarioControllerApi();
+final int id = 789; // int | 
+final UsuarioAlterarDTO usuarioAlterarDTO = ; // UsuarioAlterarDTO | 
+
+try {
+    api.usuarioControllerNovoAlterar(id, usuarioAlterarDTO);
+} catch on DioException (e) {
+    print('Exception when calling UsuarioControllerApi->usuarioControllerNovoAlterar: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **usuarioAlterarDTO** | [**UsuarioAlterarDTO**](UsuarioAlterarDTO.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

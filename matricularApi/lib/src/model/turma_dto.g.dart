@@ -10,8 +10,8 @@ const TurmaDTOTurnoEnum _$turmaDTOTurnoEnum_MATUTINO =
     const TurmaDTOTurnoEnum._('MATUTINO');
 const TurmaDTOTurnoEnum _$turmaDTOTurnoEnum_VESPERTINO =
     const TurmaDTOTurnoEnum._('VESPERTINO');
-const TurmaDTOTurnoEnum _$turmaDTOTurnoEnum_NOTURNO =
-    const TurmaDTOTurnoEnum._('NOTURNO');
+const TurmaDTOTurnoEnum _$turmaDTOTurnoEnum_INTEGRAL =
+    const TurmaDTOTurnoEnum._('INTEGRAL');
 
 TurmaDTOTurnoEnum _$turmaDTOTurnoEnumValueOf(String name) {
   switch (name) {
@@ -19,10 +19,10 @@ TurmaDTOTurnoEnum _$turmaDTOTurnoEnumValueOf(String name) {
       return _$turmaDTOTurnoEnum_MATUTINO;
     case 'VESPERTINO':
       return _$turmaDTOTurnoEnum_VESPERTINO;
-    case 'NOTURNO':
-      return _$turmaDTOTurnoEnum_NOTURNO;
+    case 'INTEGRAL':
+      return _$turmaDTOTurnoEnum_INTEGRAL;
     default:
-      return _$turmaDTOTurnoEnum_NOTURNO;
+      return _$turmaDTOTurnoEnum_INTEGRAL;
   }
 }
 
@@ -30,7 +30,7 @@ final BuiltSet<TurmaDTOTurnoEnum> _$turmaDTOTurnoEnumValues =
     new BuiltSet<TurmaDTOTurnoEnum>(const <TurmaDTOTurnoEnum>[
   _$turmaDTOTurnoEnum_MATUTINO,
   _$turmaDTOTurnoEnum_VESPERTINO,
-  _$turmaDTOTurnoEnum_NOTURNO,
+  _$turmaDTOTurnoEnum_INTEGRAL,
 ]);
 
 Serializer<TurmaDTOTurnoEnum> _$turmaDTOTurnoEnumSerializer =
@@ -41,12 +41,12 @@ class _$TurmaDTOTurnoEnumSerializer
   static const Map<String, Object> _toWire = const <String, Object>{
     'MATUTINO': 'MATUTINO',
     'VESPERTINO': 'VESPERTINO',
-    'NOTURNO': 'NOTURNO',
+    'INTEGRAL': 'INTEGRAL',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
     'MATUTINO': 'MATUTINO',
     'VESPERTINO': 'VESPERTINO',
-    'NOTURNO': 'NOTURNO',
+    'INTEGRAL': 'INTEGRAL',
   };
 
   @override
@@ -85,6 +85,8 @@ class _$TurmaDTO extends TurmaDTO {
   final String? telefoneProfessor;
   @override
   final int? quantidadeAlunos;
+  @override
+  final BuiltList<MatriculaListagemDTO>? alunos;
 
   factory _$TurmaDTO([void Function(TurmaDTOBuilder)? updates]) =>
       (new TurmaDTOBuilder()..update(updates))._build();
@@ -98,7 +100,8 @@ class _$TurmaDTO extends TurmaDTO {
       this.horaInicio,
       this.horaFim,
       this.telefoneProfessor,
-      this.quantidadeAlunos})
+      this.quantidadeAlunos,
+      this.alunos})
       : super._();
 
   @override
@@ -120,7 +123,8 @@ class _$TurmaDTO extends TurmaDTO {
         horaInicio == other.horaInicio &&
         horaFim == other.horaFim &&
         telefoneProfessor == other.telefoneProfessor &&
-        quantidadeAlunos == other.quantidadeAlunos;
+        quantidadeAlunos == other.quantidadeAlunos &&
+        alunos == other.alunos;
   }
 
   @override
@@ -135,6 +139,7 @@ class _$TurmaDTO extends TurmaDTO {
     _$hash = $jc(_$hash, horaFim.hashCode);
     _$hash = $jc(_$hash, telefoneProfessor.hashCode);
     _$hash = $jc(_$hash, quantidadeAlunos.hashCode);
+    _$hash = $jc(_$hash, alunos.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -150,7 +155,8 @@ class _$TurmaDTO extends TurmaDTO {
           ..add('horaInicio', horaInicio)
           ..add('horaFim', horaFim)
           ..add('telefoneProfessor', telefoneProfessor)
-          ..add('quantidadeAlunos', quantidadeAlunos))
+          ..add('quantidadeAlunos', quantidadeAlunos)
+          ..add('alunos', alunos))
         .toString();
   }
 }
@@ -197,6 +203,12 @@ class TurmaDTOBuilder implements Builder<TurmaDTO, TurmaDTOBuilder> {
   set quantidadeAlunos(int? quantidadeAlunos) =>
       _$this._quantidadeAlunos = quantidadeAlunos;
 
+  ListBuilder<MatriculaListagemDTO>? _alunos;
+  ListBuilder<MatriculaListagemDTO> get alunos =>
+      _$this._alunos ??= new ListBuilder<MatriculaListagemDTO>();
+  set alunos(ListBuilder<MatriculaListagemDTO>? alunos) =>
+      _$this._alunos = alunos;
+
   TurmaDTOBuilder() {
     TurmaDTO._defaults(this);
   }
@@ -213,6 +225,7 @@ class TurmaDTOBuilder implements Builder<TurmaDTO, TurmaDTOBuilder> {
       _horaFim = $v.horaFim;
       _telefoneProfessor = $v.telefoneProfessor;
       _quantidadeAlunos = $v.quantidadeAlunos;
+      _alunos = $v.alunos?.toBuilder();
       _$v = null;
     }
     return this;
@@ -233,17 +246,31 @@ class TurmaDTOBuilder implements Builder<TurmaDTO, TurmaDTOBuilder> {
   TurmaDTO build() => _build();
 
   _$TurmaDTO _build() {
-    final _$result = _$v ??
-        new _$TurmaDTO._(
-            id: id,
-            titulo: titulo,
-            nomeProfessor: nomeProfessor,
-            turno: turno,
-            ano: ano,
-            horaInicio: horaInicio,
-            horaFim: horaFim,
-            telefoneProfessor: telefoneProfessor,
-            quantidadeAlunos: quantidadeAlunos);
+    _$TurmaDTO _$result;
+    try {
+      _$result = _$v ??
+          new _$TurmaDTO._(
+              id: id,
+              titulo: titulo,
+              nomeProfessor: nomeProfessor,
+              turno: turno,
+              ano: ano,
+              horaInicio: horaInicio,
+              horaFim: horaFim,
+              telefoneProfessor: telefoneProfessor,
+              quantidadeAlunos: quantidadeAlunos,
+              alunos: _alunos?.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'alunos';
+        _alunos?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'TurmaDTO', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

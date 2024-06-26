@@ -4,6 +4,7 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
+import 'package:matricular/src/model/date.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -13,21 +14,28 @@ part 'tutor_dto.g.dart';
 ///
 /// Properties:
 /// * [cpf]
-/// * [empresaTelefone]
+/// * [telefoneFixoEmpresarial]
+/// * [telefoneCelularEmpresarial]
 /// * [empresaCnpj]
 /// * [empresaNome]
 /// * [profissao]
-/// * [telefoneWhatsapp]
-/// * [pessoaNome]
+/// * [nomeTutor]
 /// * [pessoaTelefone]
+/// * [dataNascimento]
 /// * [vinculo]
+/// * [casado]
+/// * [moraComConjuge]
+/// * [telefoneReserva]
 @BuiltValue()
 abstract class TutorDTO implements Built<TutorDTO, TutorDTOBuilder> {
   @BuiltValueField(wireName: r'cpf')
   String? get cpf;
 
-  @BuiltValueField(wireName: r'empresaTelefone')
-  String? get empresaTelefone;
+  @BuiltValueField(wireName: r'telefoneFixoEmpresarial')
+  String? get telefoneFixoEmpresarial;
+
+  @BuiltValueField(wireName: r'telefoneCelularEmpresarial')
+  String? get telefoneCelularEmpresarial;
 
   @BuiltValueField(wireName: r'empresaCnpj')
   String? get empresaCnpj;
@@ -38,18 +46,27 @@ abstract class TutorDTO implements Built<TutorDTO, TutorDTOBuilder> {
   @BuiltValueField(wireName: r'profissao')
   String? get profissao;
 
-  @BuiltValueField(wireName: r'telefoneWhatsapp')
-  bool? get telefoneWhatsapp;
-
-  @BuiltValueField(wireName: r'pessoaNome')
-  String? get pessoaNome;
+  @BuiltValueField(wireName: r'nomeTutor')
+  String? get nomeTutor;
 
   @BuiltValueField(wireName: r'pessoaTelefone')
   String? get pessoaTelefone;
 
+  @BuiltValueField(wireName: r'dataNascimento')
+  Date? get dataNascimento;
+
   @BuiltValueField(wireName: r'vinculo')
   TutorDTOVinculoEnum? get vinculo;
-  // enum vinculoEnum {  PAI,  MAE,  TIO,  VIZINHO,  AVO,  };
+  // enum vinculoEnum {  PAI,  MAE,  TIO,  VIZINHO,  AVO,  TIA,  BISAVO,  };
+
+  @BuiltValueField(wireName: r'casado')
+  bool? get casado;
+
+  @BuiltValueField(wireName: r'moraComConjuge')
+  bool? get moraComConjuge;
+
+  @BuiltValueField(wireName: r'telefoneReserva')
+  String? get telefoneReserva;
 
   TutorDTO._();
 
@@ -81,10 +98,17 @@ class _$TutorDTOSerializer implements PrimitiveSerializer<TutorDTO> {
         specifiedType: const FullType(String),
       );
     }
-    if (object.empresaTelefone != null) {
-      yield r'empresaTelefone';
+    if (object.telefoneFixoEmpresarial != null) {
+      yield r'telefoneFixoEmpresarial';
       yield serializers.serialize(
-        object.empresaTelefone,
+        object.telefoneFixoEmpresarial,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.telefoneCelularEmpresarial != null) {
+      yield r'telefoneCelularEmpresarial';
+      yield serializers.serialize(
+        object.telefoneCelularEmpresarial,
         specifiedType: const FullType(String),
       );
     }
@@ -109,17 +133,10 @@ class _$TutorDTOSerializer implements PrimitiveSerializer<TutorDTO> {
         specifiedType: const FullType(String),
       );
     }
-    if (object.telefoneWhatsapp != null) {
-      yield r'telefoneWhatsapp';
+    if (object.nomeTutor != null) {
+      yield r'nomeTutor';
       yield serializers.serialize(
-        object.telefoneWhatsapp,
-        specifiedType: const FullType(bool),
-      );
-    }
-    if (object.pessoaNome != null) {
-      yield r'pessoaNome';
-      yield serializers.serialize(
-        object.pessoaNome,
+        object.nomeTutor,
         specifiedType: const FullType(String),
       );
     }
@@ -130,11 +147,39 @@ class _$TutorDTOSerializer implements PrimitiveSerializer<TutorDTO> {
         specifiedType: const FullType(String),
       );
     }
+    if (object.dataNascimento != null) {
+      yield r'dataNascimento';
+      yield serializers.serialize(
+        object.dataNascimento,
+        specifiedType: const FullType(Date),
+      );
+    }
     if (object.vinculo != null) {
       yield r'vinculo';
       yield serializers.serialize(
         object.vinculo,
         specifiedType: const FullType(TutorDTOVinculoEnum),
+      );
+    }
+    if (object.casado != null) {
+      yield r'casado';
+      yield serializers.serialize(
+        object.casado,
+        specifiedType: const FullType(bool),
+      );
+    }
+    if (object.moraComConjuge != null) {
+      yield r'moraComConjuge';
+      yield serializers.serialize(
+        object.moraComConjuge,
+        specifiedType: const FullType(bool),
+      );
+    }
+    if (object.telefoneReserva != null) {
+      yield r'telefoneReserva';
+      yield serializers.serialize(
+        object.telefoneReserva,
+        specifiedType: const FullType(String),
       );
     }
   }
@@ -169,12 +214,19 @@ class _$TutorDTOSerializer implements PrimitiveSerializer<TutorDTO> {
           ) as String;
           result.cpf = valueDes;
           break;
-        case r'empresaTelefone':
+        case r'telefoneFixoEmpresarial':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.empresaTelefone = valueDes;
+          result.telefoneFixoEmpresarial = valueDes;
+          break;
+        case r'telefoneCelularEmpresarial':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.telefoneCelularEmpresarial = valueDes;
           break;
         case r'empresaCnpj':
           final valueDes = serializers.deserialize(
@@ -197,19 +249,12 @@ class _$TutorDTOSerializer implements PrimitiveSerializer<TutorDTO> {
           ) as String;
           result.profissao = valueDes;
           break;
-        case r'telefoneWhatsapp':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.telefoneWhatsapp = valueDes;
-          break;
-        case r'pessoaNome':
+        case r'nomeTutor':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.pessoaNome = valueDes;
+          result.nomeTutor = valueDes;
           break;
         case r'pessoaTelefone':
           final valueDes = serializers.deserialize(
@@ -218,12 +263,40 @@ class _$TutorDTOSerializer implements PrimitiveSerializer<TutorDTO> {
           ) as String;
           result.pessoaTelefone = valueDes;
           break;
+        case r'dataNascimento':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(Date),
+          ) as Date;
+          result.dataNascimento = valueDes;
+          break;
         case r'vinculo':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(TutorDTOVinculoEnum),
           ) as TutorDTOVinculoEnum;
           result.vinculo = valueDes;
+          break;
+        case r'casado':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.casado = valueDes;
+          break;
+        case r'moraComConjuge':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.moraComConjuge = valueDes;
+          break;
+        case r'telefoneReserva':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.telefoneReserva = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -263,8 +336,12 @@ class TutorDTOVinculoEnum extends EnumClass {
   static const TutorDTOVinculoEnum TIO = _$tutorDTOVinculoEnum_TIO;
   @BuiltValueEnumConst(wireName: r'VIZINHO')
   static const TutorDTOVinculoEnum VIZINHO = _$tutorDTOVinculoEnum_VIZINHO;
-  @BuiltValueEnumConst(wireName: r'AVO', fallback: true)
+  @BuiltValueEnumConst(wireName: r'AVO')
   static const TutorDTOVinculoEnum AVO = _$tutorDTOVinculoEnum_AVO;
+  @BuiltValueEnumConst(wireName: r'TIA')
+  static const TutorDTOVinculoEnum TIA = _$tutorDTOVinculoEnum_TIA;
+  @BuiltValueEnumConst(wireName: r'BISAVO', fallback: true)
+  static const TutorDTOVinculoEnum BISAVO = _$tutorDTOVinculoEnum_BISAVO;
 
   static Serializer<TutorDTOVinculoEnum> get serializer =>
       _$tutorDTOVinculoEnumSerializer;

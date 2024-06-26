@@ -9,16 +9,16 @@ import 'package:matricular/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | [optional] 
-**esteveOutraCreche** | **bool** |  | [optional] 
-**razaoSaidaCreche** | **String** |  | [optional] 
+**frequentouOutraCreche** | **bool** |  | [optional] 
+**razaoSaida** | **String** |  | [optional] 
 **tipoResidencia** | **String** |  | [optional] 
 **valorAluguel** | **int** |  | [optional] 
-**beneficiarioGoverno** | **bool** |  | [optional] 
+**possuiBeneficiosDoGoverno** | **bool** |  | [optional] 
 **valorBeneficio** | **int** |  | [optional] 
 **rendaFamiliar** | **num** |  | [optional] 
-**paisCasados** | **bool** |  | [optional] 
-**moramJuntos** | **bool** |  | [optional] 
 **observacao** | **String** |  | [optional] 
+**possuiVeiculoProprio** | **bool** |  | [optional] 
+**possuiEcaminhamentoCRAS** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

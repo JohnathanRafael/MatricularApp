@@ -8,15 +8,15 @@ import 'package:matricular/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**totalPages** | **int** |  | [optional] 
 **totalElements** | **int** |  | [optional] 
+**totalPages** | **int** |  | [optional] 
 **size** | **int** |  | [optional] 
 **content** | [**BuiltList&lt;UsuarioDTO&gt;**](UsuarioDTO.md) |  | [optional] 
 **number** | **int** |  | [optional] 
 **sort** | [**SortObject**](SortObject.md) |  | [optional] 
+**numberOfElements** | **int** |  | [optional] 
 **first** | **bool** |  | [optional] 
 **last** | **bool** |  | [optional] 
-**numberOfElements** | **int** |  | [optional] 
 **pageable** | [**PageableObject**](PageableObject.md) |  | [optional] 
 **empty** | **bool** |  | [optional] 
 

@@ -30,7 +30,7 @@ abstract class UsuarioDTO implements Built<UsuarioDTO, UsuarioDTOBuilder> {
 
   @BuiltValueField(wireName: r'cargo')
   UsuarioDTOCargoEnum? get cargo;
-  // enum cargoEnum {  ADMIN,  SECRETARIA,  COORDENADORA,  };
+  // enum cargoEnum {  ADMIN,  SECRETARIA,  DIRETORA,  COORDENADORA,  };
 
   @BuiltValueField(wireName: r'email')
   String? get email;
@@ -242,6 +242,8 @@ class UsuarioDTOCargoEnum extends EnumClass {
   @BuiltValueEnumConst(wireName: r'SECRETARIA')
   static const UsuarioDTOCargoEnum SECRETARIA =
       _$usuarioDTOCargoEnum_SECRETARIA;
+  @BuiltValueEnumConst(wireName: r'DIRETORA')
+  static const UsuarioDTOCargoEnum DIRETORA = _$usuarioDTOCargoEnum_DIRETORA;
   @BuiltValueEnumConst(wireName: r'COORDENADORA', fallback: true)
   static const UsuarioDTOCargoEnum COORDENADORA =
       _$usuarioDTOCargoEnum_COORDENADORA;

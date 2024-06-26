@@ -11,15 +11,12 @@ class _$NecessidadeEspecialDTO extends NecessidadeEspecialDTO {
   final int? id;
   @override
   final String? titulo;
-  @override
-  final String? observacoes;
 
   factory _$NecessidadeEspecialDTO(
           [void Function(NecessidadeEspecialDTOBuilder)? updates]) =>
       (new NecessidadeEspecialDTOBuilder()..update(updates))._build();
 
-  _$NecessidadeEspecialDTO._({this.id, this.titulo, this.observacoes})
-      : super._();
+  _$NecessidadeEspecialDTO._({this.id, this.titulo}) : super._();
 
   @override
   NecessidadeEspecialDTO rebuild(
@@ -35,8 +32,7 @@ class _$NecessidadeEspecialDTO extends NecessidadeEspecialDTO {
     if (identical(other, this)) return true;
     return other is NecessidadeEspecialDTO &&
         id == other.id &&
-        titulo == other.titulo &&
-        observacoes == other.observacoes;
+        titulo == other.titulo;
   }
 
   @override
@@ -44,7 +40,6 @@ class _$NecessidadeEspecialDTO extends NecessidadeEspecialDTO {
     var _$hash = 0;
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, titulo.hashCode);
-    _$hash = $jc(_$hash, observacoes.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -53,8 +48,7 @@ class _$NecessidadeEspecialDTO extends NecessidadeEspecialDTO {
   String toString() {
     return (newBuiltValueToStringHelper(r'NecessidadeEspecialDTO')
           ..add('id', id)
-          ..add('titulo', titulo)
-          ..add('observacoes', observacoes))
+          ..add('titulo', titulo))
         .toString();
   }
 }
@@ -71,10 +65,6 @@ class NecessidadeEspecialDTOBuilder
   String? get titulo => _$this._titulo;
   set titulo(String? titulo) => _$this._titulo = titulo;
 
-  String? _observacoes;
-  String? get observacoes => _$this._observacoes;
-  set observacoes(String? observacoes) => _$this._observacoes = observacoes;
-
   NecessidadeEspecialDTOBuilder() {
     NecessidadeEspecialDTO._defaults(this);
   }
@@ -84,7 +74,6 @@ class NecessidadeEspecialDTOBuilder
     if ($v != null) {
       _id = $v.id;
       _titulo = $v.titulo;
-      _observacoes = $v.observacoes;
       _$v = null;
     }
     return this;
@@ -105,9 +94,8 @@ class NecessidadeEspecialDTOBuilder
   NecessidadeEspecialDTO build() => _build();
 
   _$NecessidadeEspecialDTO _build() {
-    final _$result = _$v ??
-        new _$NecessidadeEspecialDTO._(
-            id: id, titulo: titulo, observacoes: observacoes);
+    final _$result =
+        _$v ?? new _$NecessidadeEspecialDTO._(id: id, titulo: titulo);
     replace(_$result);
     return _$result;
   }

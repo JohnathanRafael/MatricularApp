@@ -85,7 +85,7 @@ class _$MatriculaDTO extends MatriculaDTO {
   @override
   final Date? nascimento;
   @override
-  final int? enderecoId;
+  final EnderecoDTO? endereco;
   @override
   final BuiltList<TutorDTO>? tutorDTOList;
   @override
@@ -110,7 +110,7 @@ class _$MatriculaDTO extends MatriculaDTO {
       this.nome,
       this.status,
       this.nascimento,
-      this.enderecoId,
+      this.endereco,
       this.tutorDTOList,
       this.necessidades,
       this.responsaveis,
@@ -136,7 +136,7 @@ class _$MatriculaDTO extends MatriculaDTO {
         nome == other.nome &&
         status == other.status &&
         nascimento == other.nascimento &&
-        enderecoId == other.enderecoId &&
+        endereco == other.endereco &&
         tutorDTOList == other.tutorDTOList &&
         necessidades == other.necessidades &&
         responsaveis == other.responsaveis &&
@@ -154,7 +154,7 @@ class _$MatriculaDTO extends MatriculaDTO {
     _$hash = $jc(_$hash, nome.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
     _$hash = $jc(_$hash, nascimento.hashCode);
-    _$hash = $jc(_$hash, enderecoId.hashCode);
+    _$hash = $jc(_$hash, endereco.hashCode);
     _$hash = $jc(_$hash, tutorDTOList.hashCode);
     _$hash = $jc(_$hash, necessidades.hashCode);
     _$hash = $jc(_$hash, responsaveis.hashCode);
@@ -174,7 +174,7 @@ class _$MatriculaDTO extends MatriculaDTO {
           ..add('nome', nome)
           ..add('status', status)
           ..add('nascimento', nascimento)
-          ..add('enderecoId', enderecoId)
+          ..add('endereco', endereco)
           ..add('tutorDTOList', tutorDTOList)
           ..add('necessidades', necessidades)
           ..add('responsaveis', responsaveis)
@@ -210,9 +210,10 @@ class MatriculaDTOBuilder
   Date? get nascimento => _$this._nascimento;
   set nascimento(Date? nascimento) => _$this._nascimento = nascimento;
 
-  int? _enderecoId;
-  int? get enderecoId => _$this._enderecoId;
-  set enderecoId(int? enderecoId) => _$this._enderecoId = enderecoId;
+  EnderecoDTOBuilder? _endereco;
+  EnderecoDTOBuilder get endereco =>
+      _$this._endereco ??= new EnderecoDTOBuilder();
+  set endereco(EnderecoDTOBuilder? endereco) => _$this._endereco = endereco;
 
   ListBuilder<TutorDTO>? _tutorDTOList;
   ListBuilder<TutorDTO> get tutorDTOList =>
@@ -268,7 +269,7 @@ class MatriculaDTOBuilder
       _nome = $v.nome;
       _status = $v.status;
       _nascimento = $v.nascimento;
-      _enderecoId = $v.enderecoId;
+      _endereco = $v.endereco?.toBuilder();
       _tutorDTOList = $v.tutorDTOList?.toBuilder();
       _necessidades = $v.necessidades?.toBuilder();
       _responsaveis = $v.responsaveis?.toBuilder();
@@ -305,7 +306,7 @@ class MatriculaDTOBuilder
               nome: nome,
               status: status,
               nascimento: nascimento,
-              enderecoId: enderecoId,
+              endereco: _endereco?.build(),
               tutorDTOList: _tutorDTOList?.build(),
               necessidades: _necessidades?.build(),
               responsaveis: _responsaveis?.build(),
@@ -316,6 +317,8 @@ class MatriculaDTOBuilder
     } catch (_) {
       late String _$failedField;
       try {
+        _$failedField = 'endereco';
+        _endereco?.build();
         _$failedField = 'tutorDTOList';
         _tutorDTOList?.build();
         _$failedField = 'necessidades';

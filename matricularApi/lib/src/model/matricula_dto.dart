@@ -6,6 +6,7 @@
 import 'package:matricular/src/model/turma_dto.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:matricular/src/model/informacoes_matricula_dto.dart';
+import 'package:matricular/src/model/endereco_dto.dart';
 import 'package:matricular/src/model/responsavel_dto.dart';
 import 'package:matricular/src/model/date.dart';
 import 'package:matricular/src/model/documento_matricula_dto.dart';
@@ -25,7 +26,7 @@ part 'matricula_dto.g.dart';
 /// * [nome]
 /// * [status]
 /// * [nascimento]
-/// * [enderecoId]
+/// * [endereco]
 /// * [tutorDTOList]
 /// * [necessidades]
 /// * [responsaveis]
@@ -52,8 +53,8 @@ abstract class MatriculaDTO
   @BuiltValueField(wireName: r'nascimento')
   Date? get nascimento;
 
-  @BuiltValueField(wireName: r'enderecoId')
-  int? get enderecoId;
+  @BuiltValueField(wireName: r'endereco')
+  EnderecoDTO? get endereco;
 
   @BuiltValueField(wireName: r'tutorDTOList')
   BuiltList<TutorDTO>? get tutorDTOList;
@@ -134,11 +135,11 @@ class _$MatriculaDTOSerializer implements PrimitiveSerializer<MatriculaDTO> {
         specifiedType: const FullType(Date),
       );
     }
-    if (object.enderecoId != null) {
-      yield r'enderecoId';
+    if (object.endereco != null) {
+      yield r'endereco';
       yield serializers.serialize(
-        object.enderecoId,
-        specifiedType: const FullType(int),
+        object.endereco,
+        specifiedType: const FullType(EnderecoDTO),
       );
     }
     if (object.tutorDTOList != null) {
@@ -252,12 +253,12 @@ class _$MatriculaDTOSerializer implements PrimitiveSerializer<MatriculaDTO> {
           ) as Date;
           result.nascimento = valueDes;
           break;
-        case r'enderecoId':
+        case r'endereco':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.enderecoId = valueDes;
+            specifiedType: const FullType(EnderecoDTO),
+          ) as EnderecoDTO;
+          result.endereco.replace(valueDes);
           break;
         case r'tutorDTOList':
           final valueDes = serializers.deserialize(

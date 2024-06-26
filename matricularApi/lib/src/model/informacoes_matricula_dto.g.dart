@@ -10,25 +10,25 @@ class _$InformacoesMatriculaDTO extends InformacoesMatriculaDTO {
   @override
   final int? id;
   @override
-  final bool? esteveOutraCreche;
+  final bool? frequentouOutraCreche;
   @override
-  final String? razaoSaidaCreche;
+  final String? razaoSaida;
   @override
   final String? tipoResidencia;
   @override
   final int? valorAluguel;
   @override
-  final bool? beneficiarioGoverno;
+  final bool? possuiBeneficiosDoGoverno;
   @override
   final int? valorBeneficio;
   @override
   final num? rendaFamiliar;
   @override
-  final bool? paisCasados;
-  @override
-  final bool? moramJuntos;
-  @override
   final String? observacao;
+  @override
+  final bool? possuiVeiculoProprio;
+  @override
+  final bool? possuiEcaminhamentoCRAS;
 
   factory _$InformacoesMatriculaDTO(
           [void Function(InformacoesMatriculaDTOBuilder)? updates]) =>
@@ -36,16 +36,16 @@ class _$InformacoesMatriculaDTO extends InformacoesMatriculaDTO {
 
   _$InformacoesMatriculaDTO._(
       {this.id,
-      this.esteveOutraCreche,
-      this.razaoSaidaCreche,
+      this.frequentouOutraCreche,
+      this.razaoSaida,
       this.tipoResidencia,
       this.valorAluguel,
-      this.beneficiarioGoverno,
+      this.possuiBeneficiosDoGoverno,
       this.valorBeneficio,
       this.rendaFamiliar,
-      this.paisCasados,
-      this.moramJuntos,
-      this.observacao})
+      this.observacao,
+      this.possuiVeiculoProprio,
+      this.possuiEcaminhamentoCRAS})
       : super._();
 
   @override
@@ -62,32 +62,32 @@ class _$InformacoesMatriculaDTO extends InformacoesMatriculaDTO {
     if (identical(other, this)) return true;
     return other is InformacoesMatriculaDTO &&
         id == other.id &&
-        esteveOutraCreche == other.esteveOutraCreche &&
-        razaoSaidaCreche == other.razaoSaidaCreche &&
+        frequentouOutraCreche == other.frequentouOutraCreche &&
+        razaoSaida == other.razaoSaida &&
         tipoResidencia == other.tipoResidencia &&
         valorAluguel == other.valorAluguel &&
-        beneficiarioGoverno == other.beneficiarioGoverno &&
+        possuiBeneficiosDoGoverno == other.possuiBeneficiosDoGoverno &&
         valorBeneficio == other.valorBeneficio &&
         rendaFamiliar == other.rendaFamiliar &&
-        paisCasados == other.paisCasados &&
-        moramJuntos == other.moramJuntos &&
-        observacao == other.observacao;
+        observacao == other.observacao &&
+        possuiVeiculoProprio == other.possuiVeiculoProprio &&
+        possuiEcaminhamentoCRAS == other.possuiEcaminhamentoCRAS;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, esteveOutraCreche.hashCode);
-    _$hash = $jc(_$hash, razaoSaidaCreche.hashCode);
+    _$hash = $jc(_$hash, frequentouOutraCreche.hashCode);
+    _$hash = $jc(_$hash, razaoSaida.hashCode);
     _$hash = $jc(_$hash, tipoResidencia.hashCode);
     _$hash = $jc(_$hash, valorAluguel.hashCode);
-    _$hash = $jc(_$hash, beneficiarioGoverno.hashCode);
+    _$hash = $jc(_$hash, possuiBeneficiosDoGoverno.hashCode);
     _$hash = $jc(_$hash, valorBeneficio.hashCode);
     _$hash = $jc(_$hash, rendaFamiliar.hashCode);
-    _$hash = $jc(_$hash, paisCasados.hashCode);
-    _$hash = $jc(_$hash, moramJuntos.hashCode);
     _$hash = $jc(_$hash, observacao.hashCode);
+    _$hash = $jc(_$hash, possuiVeiculoProprio.hashCode);
+    _$hash = $jc(_$hash, possuiEcaminhamentoCRAS.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -96,16 +96,16 @@ class _$InformacoesMatriculaDTO extends InformacoesMatriculaDTO {
   String toString() {
     return (newBuiltValueToStringHelper(r'InformacoesMatriculaDTO')
           ..add('id', id)
-          ..add('esteveOutraCreche', esteveOutraCreche)
-          ..add('razaoSaidaCreche', razaoSaidaCreche)
+          ..add('frequentouOutraCreche', frequentouOutraCreche)
+          ..add('razaoSaida', razaoSaida)
           ..add('tipoResidencia', tipoResidencia)
           ..add('valorAluguel', valorAluguel)
-          ..add('beneficiarioGoverno', beneficiarioGoverno)
+          ..add('possuiBeneficiosDoGoverno', possuiBeneficiosDoGoverno)
           ..add('valorBeneficio', valorBeneficio)
           ..add('rendaFamiliar', rendaFamiliar)
-          ..add('paisCasados', paisCasados)
-          ..add('moramJuntos', moramJuntos)
-          ..add('observacao', observacao))
+          ..add('observacao', observacao)
+          ..add('possuiVeiculoProprio', possuiVeiculoProprio)
+          ..add('possuiEcaminhamentoCRAS', possuiEcaminhamentoCRAS))
         .toString();
   }
 }
@@ -119,15 +119,14 @@ class InformacoesMatriculaDTOBuilder
   int? get id => _$this._id;
   set id(int? id) => _$this._id = id;
 
-  bool? _esteveOutraCreche;
-  bool? get esteveOutraCreche => _$this._esteveOutraCreche;
-  set esteveOutraCreche(bool? esteveOutraCreche) =>
-      _$this._esteveOutraCreche = esteveOutraCreche;
+  bool? _frequentouOutraCreche;
+  bool? get frequentouOutraCreche => _$this._frequentouOutraCreche;
+  set frequentouOutraCreche(bool? frequentouOutraCreche) =>
+      _$this._frequentouOutraCreche = frequentouOutraCreche;
 
-  String? _razaoSaidaCreche;
-  String? get razaoSaidaCreche => _$this._razaoSaidaCreche;
-  set razaoSaidaCreche(String? razaoSaidaCreche) =>
-      _$this._razaoSaidaCreche = razaoSaidaCreche;
+  String? _razaoSaida;
+  String? get razaoSaida => _$this._razaoSaida;
+  set razaoSaida(String? razaoSaida) => _$this._razaoSaida = razaoSaida;
 
   String? _tipoResidencia;
   String? get tipoResidencia => _$this._tipoResidencia;
@@ -138,10 +137,10 @@ class InformacoesMatriculaDTOBuilder
   int? get valorAluguel => _$this._valorAluguel;
   set valorAluguel(int? valorAluguel) => _$this._valorAluguel = valorAluguel;
 
-  bool? _beneficiarioGoverno;
-  bool? get beneficiarioGoverno => _$this._beneficiarioGoverno;
-  set beneficiarioGoverno(bool? beneficiarioGoverno) =>
-      _$this._beneficiarioGoverno = beneficiarioGoverno;
+  bool? _possuiBeneficiosDoGoverno;
+  bool? get possuiBeneficiosDoGoverno => _$this._possuiBeneficiosDoGoverno;
+  set possuiBeneficiosDoGoverno(bool? possuiBeneficiosDoGoverno) =>
+      _$this._possuiBeneficiosDoGoverno = possuiBeneficiosDoGoverno;
 
   int? _valorBeneficio;
   int? get valorBeneficio => _$this._valorBeneficio;
@@ -153,17 +152,19 @@ class InformacoesMatriculaDTOBuilder
   set rendaFamiliar(num? rendaFamiliar) =>
       _$this._rendaFamiliar = rendaFamiliar;
 
-  bool? _paisCasados;
-  bool? get paisCasados => _$this._paisCasados;
-  set paisCasados(bool? paisCasados) => _$this._paisCasados = paisCasados;
-
-  bool? _moramJuntos;
-  bool? get moramJuntos => _$this._moramJuntos;
-  set moramJuntos(bool? moramJuntos) => _$this._moramJuntos = moramJuntos;
-
   String? _observacao;
   String? get observacao => _$this._observacao;
   set observacao(String? observacao) => _$this._observacao = observacao;
+
+  bool? _possuiVeiculoProprio;
+  bool? get possuiVeiculoProprio => _$this._possuiVeiculoProprio;
+  set possuiVeiculoProprio(bool? possuiVeiculoProprio) =>
+      _$this._possuiVeiculoProprio = possuiVeiculoProprio;
+
+  bool? _possuiEcaminhamentoCRAS;
+  bool? get possuiEcaminhamentoCRAS => _$this._possuiEcaminhamentoCRAS;
+  set possuiEcaminhamentoCRAS(bool? possuiEcaminhamentoCRAS) =>
+      _$this._possuiEcaminhamentoCRAS = possuiEcaminhamentoCRAS;
 
   InformacoesMatriculaDTOBuilder() {
     InformacoesMatriculaDTO._defaults(this);
@@ -173,16 +174,16 @@ class InformacoesMatriculaDTOBuilder
     final $v = _$v;
     if ($v != null) {
       _id = $v.id;
-      _esteveOutraCreche = $v.esteveOutraCreche;
-      _razaoSaidaCreche = $v.razaoSaidaCreche;
+      _frequentouOutraCreche = $v.frequentouOutraCreche;
+      _razaoSaida = $v.razaoSaida;
       _tipoResidencia = $v.tipoResidencia;
       _valorAluguel = $v.valorAluguel;
-      _beneficiarioGoverno = $v.beneficiarioGoverno;
+      _possuiBeneficiosDoGoverno = $v.possuiBeneficiosDoGoverno;
       _valorBeneficio = $v.valorBeneficio;
       _rendaFamiliar = $v.rendaFamiliar;
-      _paisCasados = $v.paisCasados;
-      _moramJuntos = $v.moramJuntos;
       _observacao = $v.observacao;
+      _possuiVeiculoProprio = $v.possuiVeiculoProprio;
+      _possuiEcaminhamentoCRAS = $v.possuiEcaminhamentoCRAS;
       _$v = null;
     }
     return this;
@@ -206,16 +207,16 @@ class InformacoesMatriculaDTOBuilder
     final _$result = _$v ??
         new _$InformacoesMatriculaDTO._(
             id: id,
-            esteveOutraCreche: esteveOutraCreche,
-            razaoSaidaCreche: razaoSaidaCreche,
+            frequentouOutraCreche: frequentouOutraCreche,
+            razaoSaida: razaoSaida,
             tipoResidencia: tipoResidencia,
             valorAluguel: valorAluguel,
-            beneficiarioGoverno: beneficiarioGoverno,
+            possuiBeneficiosDoGoverno: possuiBeneficiosDoGoverno,
             valorBeneficio: valorBeneficio,
             rendaFamiliar: rendaFamiliar,
-            paisCasados: paisCasados,
-            moramJuntos: moramJuntos,
-            observacao: observacao);
+            observacao: observacao,
+            possuiVeiculoProprio: possuiVeiculoProprio,
+            possuiEcaminhamentoCRAS: possuiEcaminhamentoCRAS);
     replace(_$result);
     return _$result;
   }

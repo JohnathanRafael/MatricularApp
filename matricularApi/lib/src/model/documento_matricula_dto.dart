@@ -3,7 +3,6 @@
 //
 
 // ignore_for_file: unused_element
-import 'dart:typed_data';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -17,13 +16,12 @@ part 'documento_matricula_dto.g.dart';
 /// * [idMatricula]
 /// * [aceito]
 /// * [caminhoDocumento]
-/// * [arquivo]
 @BuiltValue()
 abstract class DocumentoMatriculaDTO
     implements Built<DocumentoMatriculaDTO, DocumentoMatriculaDTOBuilder> {
   @BuiltValueField(wireName: r'tipoDocumento')
   DocumentoMatriculaDTOTipoDocumentoEnum? get tipoDocumento;
-  // enum tipoDocumentoEnum {  FOTO_CRIANCA,  CERTIDAO_NASCIMENTO,  CPF_CRIANCA,  DOCUMENTO_VEICULO,  COMPROVANTE_ENDERECO,  COMPROVANTE_MORADIA,  COMPROVANTE_BOLSA_FAMILIA,  ENCAMINHAMENTO_CRAS,  CPF_TUTOR1,  CPF_TUTOR2,  CERTIDAO_ESTADO_CIVIL,  COMPROVANTE_TRABALHO_T1,  CONTRA_CHEQUE1T1,  CONTRA_CHEQUE2T1,  CONTRA_CHEQUE3T1,  CONTRA_CHEQUE1T2,  CONTRA_CHEQUE2T2,  CONTRA_CHEQUE3T2,  COMPROVANTE_TRABALHO_T2,  DECLARACAO_ESCOLART1,  DECLARACAO_ESCOLART2,  CERTIDAO_ESTADO_CIVIL2,  };
+  // enum tipoDocumentoEnum {  FOTO_CRIANCA,  CERTIDAO_NASCIMENTO,  CPF_CRIANCA,  DOCUMENTO_VEICULO,  COMPROVANTE_ENDERECO,  COMPROVANTE_MORADIA,  COMPROVANTE_BOLSA_FAMILIA,  ENCAMINHAMENTO_CRAS,  CPF_TUTOR1,  CPF_TUTOR2,  CERTIDAO_ESTADO_CIVIL,  COMPROVANTE_TRABALHO_T1,  CONTRA_CHEQUE1T1,  CONTRA_CHEQUE2T1,  CONTRA_CHEQUE3T1,  CONTRA_CHEQUE1T2,  CONTRA_CHEQUE2T2,  CONTRA_CHEQUE3T2,  COMPROVANTE_TRABALHO_T2,  DECLARACAO_ESCOLART1,  DECLARACAO_ESCOLART2,  };
 
   @BuiltValueField(wireName: r'idMatricula')
   int? get idMatricula;
@@ -33,9 +31,6 @@ abstract class DocumentoMatriculaDTO
 
   @BuiltValueField(wireName: r'caminhoDocumento')
   String? get caminhoDocumento;
-
-  @BuiltValueField(wireName: r'arquivo')
-  Uint8List? get arquivo;
 
   DocumentoMatriculaDTO._();
 
@@ -94,13 +89,6 @@ class _$DocumentoMatriculaDTOSerializer
         specifiedType: const FullType(String),
       );
     }
-    if (object.arquivo != null) {
-      yield r'arquivo';
-      yield serializers.serialize(
-        object.arquivo,
-        specifiedType: const FullType(Uint8List),
-      );
-    }
   }
 
   @override
@@ -154,13 +142,6 @@ class _$DocumentoMatriculaDTOSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.caminhoDocumento = valueDes;
-          break;
-        case r'arquivo':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(Uint8List),
-          ) as Uint8List;
-          result.arquivo = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -253,12 +234,9 @@ class DocumentoMatriculaDTOTipoDocumentoEnum extends EnumClass {
   @BuiltValueEnumConst(wireName: r'DECLARACAO_ESCOLART1')
   static const DocumentoMatriculaDTOTipoDocumentoEnum dECLARACAOESCOLART1 =
       _$documentoMatriculaDTOTipoDocumentoEnum_dECLARACAOESCOLART1;
-  @BuiltValueEnumConst(wireName: r'DECLARACAO_ESCOLART2')
+  @BuiltValueEnumConst(wireName: r'DECLARACAO_ESCOLART2', fallback: true)
   static const DocumentoMatriculaDTOTipoDocumentoEnum dECLARACAOESCOLART2 =
       _$documentoMatriculaDTOTipoDocumentoEnum_dECLARACAOESCOLART2;
-  @BuiltValueEnumConst(wireName: r'CERTIDAO_ESTADO_CIVIL2', fallback: true)
-  static const DocumentoMatriculaDTOTipoDocumentoEnum cERTIDAOESTADOCIVIL2 =
-      _$documentoMatriculaDTOTipoDocumentoEnum_cERTIDAOESTADOCIVIL2;
 
   static Serializer<DocumentoMatriculaDTOTipoDocumentoEnum> get serializer =>
       _$documentoMatriculaDTOTipoDocumentoEnumSerializer;

@@ -8,9 +8,9 @@ part of 'page_informacoes_matricula_dto.dart';
 
 class _$PageInformacoesMatriculaDTO extends PageInformacoesMatriculaDTO {
   @override
-  final int? totalPages;
-  @override
   final int? totalElements;
+  @override
+  final int? totalPages;
   @override
   final int? size;
   @override
@@ -20,11 +20,11 @@ class _$PageInformacoesMatriculaDTO extends PageInformacoesMatriculaDTO {
   @override
   final SortObject? sort;
   @override
+  final int? numberOfElements;
+  @override
   final bool? first;
   @override
   final bool? last;
-  @override
-  final int? numberOfElements;
   @override
   final PageableObject? pageable;
   @override
@@ -35,15 +35,15 @@ class _$PageInformacoesMatriculaDTO extends PageInformacoesMatriculaDTO {
       (new PageInformacoesMatriculaDTOBuilder()..update(updates))._build();
 
   _$PageInformacoesMatriculaDTO._(
-      {this.totalPages,
-      this.totalElements,
+      {this.totalElements,
+      this.totalPages,
       this.size,
       this.content,
       this.number,
       this.sort,
+      this.numberOfElements,
       this.first,
       this.last,
-      this.numberOfElements,
       this.pageable,
       this.empty})
       : super._();
@@ -61,15 +61,15 @@ class _$PageInformacoesMatriculaDTO extends PageInformacoesMatriculaDTO {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is PageInformacoesMatriculaDTO &&
-        totalPages == other.totalPages &&
         totalElements == other.totalElements &&
+        totalPages == other.totalPages &&
         size == other.size &&
         content == other.content &&
         number == other.number &&
         sort == other.sort &&
+        numberOfElements == other.numberOfElements &&
         first == other.first &&
         last == other.last &&
-        numberOfElements == other.numberOfElements &&
         pageable == other.pageable &&
         empty == other.empty;
   }
@@ -77,15 +77,15 @@ class _$PageInformacoesMatriculaDTO extends PageInformacoesMatriculaDTO {
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, totalPages.hashCode);
     _$hash = $jc(_$hash, totalElements.hashCode);
+    _$hash = $jc(_$hash, totalPages.hashCode);
     _$hash = $jc(_$hash, size.hashCode);
     _$hash = $jc(_$hash, content.hashCode);
     _$hash = $jc(_$hash, number.hashCode);
     _$hash = $jc(_$hash, sort.hashCode);
+    _$hash = $jc(_$hash, numberOfElements.hashCode);
     _$hash = $jc(_$hash, first.hashCode);
     _$hash = $jc(_$hash, last.hashCode);
-    _$hash = $jc(_$hash, numberOfElements.hashCode);
     _$hash = $jc(_$hash, pageable.hashCode);
     _$hash = $jc(_$hash, empty.hashCode);
     _$hash = $jf(_$hash);
@@ -95,15 +95,15 @@ class _$PageInformacoesMatriculaDTO extends PageInformacoesMatriculaDTO {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'PageInformacoesMatriculaDTO')
-          ..add('totalPages', totalPages)
           ..add('totalElements', totalElements)
+          ..add('totalPages', totalPages)
           ..add('size', size)
           ..add('content', content)
           ..add('number', number)
           ..add('sort', sort)
+          ..add('numberOfElements', numberOfElements)
           ..add('first', first)
           ..add('last', last)
-          ..add('numberOfElements', numberOfElements)
           ..add('pageable', pageable)
           ..add('empty', empty))
         .toString();
@@ -116,14 +116,14 @@ class PageInformacoesMatriculaDTOBuilder
             PageInformacoesMatriculaDTOBuilder> {
   _$PageInformacoesMatriculaDTO? _$v;
 
-  int? _totalPages;
-  int? get totalPages => _$this._totalPages;
-  set totalPages(int? totalPages) => _$this._totalPages = totalPages;
-
   int? _totalElements;
   int? get totalElements => _$this._totalElements;
   set totalElements(int? totalElements) =>
       _$this._totalElements = totalElements;
+
+  int? _totalPages;
+  int? get totalPages => _$this._totalPages;
+  set totalPages(int? totalPages) => _$this._totalPages = totalPages;
 
   int? _size;
   int? get size => _$this._size;
@@ -143,6 +143,11 @@ class PageInformacoesMatriculaDTOBuilder
   SortObjectBuilder get sort => _$this._sort ??= new SortObjectBuilder();
   set sort(SortObjectBuilder? sort) => _$this._sort = sort;
 
+  int? _numberOfElements;
+  int? get numberOfElements => _$this._numberOfElements;
+  set numberOfElements(int? numberOfElements) =>
+      _$this._numberOfElements = numberOfElements;
+
   bool? _first;
   bool? get first => _$this._first;
   set first(bool? first) => _$this._first = first;
@@ -150,11 +155,6 @@ class PageInformacoesMatriculaDTOBuilder
   bool? _last;
   bool? get last => _$this._last;
   set last(bool? last) => _$this._last = last;
-
-  int? _numberOfElements;
-  int? get numberOfElements => _$this._numberOfElements;
-  set numberOfElements(int? numberOfElements) =>
-      _$this._numberOfElements = numberOfElements;
 
   PageableObjectBuilder? _pageable;
   PageableObjectBuilder get pageable =>
@@ -172,15 +172,15 @@ class PageInformacoesMatriculaDTOBuilder
   PageInformacoesMatriculaDTOBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _totalPages = $v.totalPages;
       _totalElements = $v.totalElements;
+      _totalPages = $v.totalPages;
       _size = $v.size;
       _content = $v.content?.toBuilder();
       _number = $v.number;
       _sort = $v.sort?.toBuilder();
+      _numberOfElements = $v.numberOfElements;
       _first = $v.first;
       _last = $v.last;
-      _numberOfElements = $v.numberOfElements;
       _pageable = $v.pageable?.toBuilder();
       _empty = $v.empty;
       _$v = null;
@@ -207,15 +207,15 @@ class PageInformacoesMatriculaDTOBuilder
     try {
       _$result = _$v ??
           new _$PageInformacoesMatriculaDTO._(
-              totalPages: totalPages,
               totalElements: totalElements,
+              totalPages: totalPages,
               size: size,
               content: _content?.build(),
               number: number,
               sort: _sort?.build(),
+              numberOfElements: numberOfElements,
               first: first,
               last: last,
-              numberOfElements: numberOfElements,
               pageable: _pageable?.build(),
               empty: empty);
     } catch (_) {

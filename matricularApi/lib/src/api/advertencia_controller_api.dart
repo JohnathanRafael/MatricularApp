@@ -130,6 +130,122 @@ class AdvertenciaControllerApi {
     );
   }
 
+  /// advertenciaControllerAlterarAdvertencia
+  /// Remove alunos da turma
+  ///
+  /// Parameters:
+  /// * [idMatricula]
+  /// * [numeroAdvertencia]
+  /// * [advertenciaDTO]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [AdvertenciaDTO] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<AdvertenciaDTO>> advertenciaControllerAlterarAdvertencia({
+    required int idMatricula,
+    required int numeroAdvertencia,
+    required AdvertenciaDTO advertenciaDTO,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path =
+        r'/api/v1/advertencia/alterar-advertencia/{id-matricula}/{numero-advertencia}'
+            .replaceAll(
+                '{' r'id-matricula' '}',
+                encodeQueryParameter(
+                        _serializers, idMatricula, const FullType(int))
+                    .toString())
+            .replaceAll(
+                '{' r'numero-advertencia' '}',
+                encodeQueryParameter(
+                        _serializers, numeroAdvertencia, const FullType(int))
+                    .toString());
+    final _options = Options(
+      method: r'PUT',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      contentType: 'application/json',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(AdvertenciaDTO);
+      _bodyData = _serializers.serialize(advertenciaDTO, specifiedType: _type);
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    AdvertenciaDTO? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(AdvertenciaDTO),
+            ) as AdvertenciaDTO;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<AdvertenciaDTO>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
   /// advertenciaControllerIncluir
   /// Método utilizado para realizar a inclusão de um entidade
   ///
@@ -400,6 +516,101 @@ class AdvertenciaControllerApi {
     );
   }
 
+  /// advertenciaControllerObterAdvertencia
+  /// Remove alunos da turma
+  ///
+  /// Parameters:
+  /// * [idMatricula]
+  /// * [numeroAdvertencia]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [AdvertenciaDTO] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<AdvertenciaDTO>> advertenciaControllerObterAdvertencia({
+    required int idMatricula,
+    required int numeroAdvertencia,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path =
+        r'/api/v1/advertencia/obter-advertencia/{id-matricula}/{numero-advertencia}'
+            .replaceAll(
+                '{' r'id-matricula' '}',
+                encodeQueryParameter(
+                        _serializers, idMatricula, const FullType(int))
+                    .toString())
+            .replaceAll(
+                '{' r'numero-advertencia' '}',
+                encodeQueryParameter(
+                        _serializers, numeroAdvertencia, const FullType(int))
+                    .toString());
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    AdvertenciaDTO? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(AdvertenciaDTO),
+            ) as AdvertenciaDTO;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<AdvertenciaDTO>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
   /// advertenciaControllerObterPorId
   /// Obter os dados completos de uma entidiade pelo id informado!
   ///
@@ -512,6 +723,101 @@ class AdvertenciaControllerApi {
         '{' r'id' '}',
         encodeQueryParameter(_serializers, id, const FullType(PkAdvertencia))
             .toString());
+    final _options = Options(
+      method: r'DELETE',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    AdvertenciaDTO? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(AdvertenciaDTO),
+            ) as AdvertenciaDTO;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<AdvertenciaDTO>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// advertenciaControllerRemoverAdvertencia
+  /// Remove alunos da turma
+  ///
+  /// Parameters:
+  /// * [idMatricula]
+  /// * [numeroAdvertencia]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [AdvertenciaDTO] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<AdvertenciaDTO>> advertenciaControllerRemoverAdvertencia({
+    required int idMatricula,
+    required int numeroAdvertencia,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path =
+        r'/api/v1/advertencia/remover-advertencia/{id-matricula}/{numero-advertencia}'
+            .replaceAll(
+                '{' r'id-matricula' '}',
+                encodeQueryParameter(
+                        _serializers, idMatricula, const FullType(int))
+                    .toString())
+            .replaceAll(
+                '{' r'numero-advertencia' '}',
+                encodeQueryParameter(
+                        _serializers, numeroAdvertencia, const FullType(int))
+                    .toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{

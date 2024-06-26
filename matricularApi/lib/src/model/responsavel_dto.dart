@@ -18,7 +18,6 @@ part 'responsavel_dto.g.dart';
 /// * [nomeMatricula]
 /// * [vinculo]
 /// * [tutor]
-/// * [chavePub]
 @BuiltValue()
 abstract class ResponsavelDTO
     implements Built<ResponsavelDTO, ResponsavelDTOBuilder> {
@@ -36,13 +35,10 @@ abstract class ResponsavelDTO
 
   @BuiltValueField(wireName: r'vinculo')
   ResponsavelDTOVinculoEnum? get vinculo;
-  // enum vinculoEnum {  PAI,  MAE,  TIO,  VIZINHO,  AVO,  };
+  // enum vinculoEnum {  PAI,  MAE,  TIO,  VIZINHO,  AVO,  TIA,  BISAVO,  };
 
   @BuiltValueField(wireName: r'tutor')
   bool? get tutor;
-
-  @BuiltValueField(wireName: r'chavePub')
-  String? get chavePub;
 
   ResponsavelDTO._();
 
@@ -112,13 +108,6 @@ class _$ResponsavelDTOSerializer
         specifiedType: const FullType(bool),
       );
     }
-    if (object.chavePub != null) {
-      yield r'chavePub';
-      yield serializers.serialize(
-        object.chavePub,
-        specifiedType: const FullType(String),
-      );
-    }
   }
 
   @override
@@ -186,13 +175,6 @@ class _$ResponsavelDTOSerializer
           ) as bool;
           result.tutor = valueDes;
           break;
-        case r'chavePub':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.chavePub = valueDes;
-          break;
         default:
           unhandled.add(key);
           unhandled.add(value);
@@ -232,8 +214,13 @@ class ResponsavelDTOVinculoEnum extends EnumClass {
   @BuiltValueEnumConst(wireName: r'VIZINHO')
   static const ResponsavelDTOVinculoEnum VIZINHO =
       _$responsavelDTOVinculoEnum_VIZINHO;
-  @BuiltValueEnumConst(wireName: r'AVO', fallback: true)
+  @BuiltValueEnumConst(wireName: r'AVO')
   static const ResponsavelDTOVinculoEnum AVO = _$responsavelDTOVinculoEnum_AVO;
+  @BuiltValueEnumConst(wireName: r'TIA')
+  static const ResponsavelDTOVinculoEnum TIA = _$responsavelDTOVinculoEnum_TIA;
+  @BuiltValueEnumConst(wireName: r'BISAVO', fallback: true)
+  static const ResponsavelDTOVinculoEnum BISAVO =
+      _$responsavelDTOVinculoEnum_BISAVO;
 
   static Serializer<ResponsavelDTOVinculoEnum> get serializer =>
       _$responsavelDTOVinculoEnumSerializer;

@@ -10,7 +10,10 @@ import 'package:dio/dio.dart';
 import 'dart:typed_data';
 import 'package:built_collection/built_collection.dart';
 import 'package:matricular/src/api_util.dart';
+import 'package:matricular/src/model/documento_matricula_dto.dart';
 import 'package:matricular/src/model/matricula_dto.dart';
+import 'package:matricular/src/model/matricula_listagem_dto.dart';
+import 'package:matricular/src/model/matricula_visualizar_dto.dart';
 import 'package:matricular/src/model/message_response.dart';
 import 'package:matricular/src/model/page_matricula_dto.dart';
 import 'package:matricular/src/model/pageable.dart';
@@ -128,8 +131,8 @@ class MatriculaControllerApi {
     );
   }
 
-  /// matriculaControllerAtualizaContraChequeMatricula
-  ///
+  /// matriculaControllerAtualizaDocumentoMatricula
+  /// Busca a quantidade de registros
   ///
   /// Parameters:
   /// * [idMatricula]
@@ -144,8 +147,7 @@ class MatriculaControllerApi {
   ///
   /// Returns a [Future] containing a [Response] with a [MatriculaDTO] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<MatriculaDTO>>
-      matriculaControllerAtualizaContraChequeMatricula({
+  Future<Response<MatriculaDTO>> matriculaControllerAtualizaDocumentoMatricula({
     required int idMatricula,
     required String tipoDocumento,
     MultipartFile? multipartFile,
@@ -156,7 +158,7 @@ class MatriculaControllerApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/v1/matricula/documento/atualiza-contra-cheque';
+    final _path = r'/api/v1/matricula/documento/atualiza-documento';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -244,11 +246,11 @@ class MatriculaControllerApi {
     );
   }
 
-  /// matriculaControllerGeraTermo
-  ///
+  /// matriculaControllerCount
+  /// Busca a quantidade de registros
   ///
   /// Parameters:
-  /// * [cpfCrianca]
+  /// * [statusMatricula]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -256,10 +258,10 @@ class MatriculaControllerApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [Uint8List] as data
+  /// Returns a [Future] containing a [Response] with a [int] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<Uint8List>> matriculaControllerGeraTermo({
-    required String cpfCrianca,
+  Future<Response<int>> matriculaControllerCount({
+    required String statusMatricula,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -267,10 +269,9 @@ class MatriculaControllerApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/v1/matricula/termo';
+    final _path = r'/api/v1/matricula/listar-matriculas-status-pagination';
     final _options = Options(
       method: r'GET',
-      responseType: ResponseType.bytes,
       headers: <String, dynamic>{
         ...?headers,
       },
@@ -288,8 +289,8 @@ class MatriculaControllerApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      r'cpfCrianca': encodeQueryParameter(
-          _serializers, cpfCrianca, const FullType(String)),
+      r'statusMatricula': encodeQueryParameter(
+          _serializers, statusMatricula, const FullType(String)),
     };
 
     final _response = await _dio.request<Object>(
@@ -301,11 +302,11 @@ class MatriculaControllerApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    Uint8List? _responseData;
+    int? _responseData;
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : rawResponse as Uint8List;
+      _responseData = rawResponse == null ? null : rawResponse as int;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -316,7 +317,7 @@ class MatriculaControllerApi {
       );
     }
 
-    return Response<Uint8List>(
+    return Response<int>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -328,11 +329,11 @@ class MatriculaControllerApi {
     );
   }
 
-  /// matriculaControllerGetDocumentoMatricula
-  ///
+  /// matriculaControllerGerarPdfDados
+  /// Gera o pdf com os dados da matricula do aluno
   ///
   /// Parameters:
-  /// * [caminhodoc]
+  /// * [id]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -340,10 +341,10 @@ class MatriculaControllerApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [Uint8List] as data
+  /// Returns a [Future]
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<Uint8List>> matriculaControllerGetDocumentoMatricula({
-    required String caminhodoc,
+  Future<Response<void>> matriculaControllerGerarPdfDados({
+    required int id,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -351,13 +352,10 @@ class MatriculaControllerApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/v1/matricula/documento/{caminhodoc}'.replaceAll(
-        '{' r'caminhodoc' '}',
-        encodeQueryParameter(_serializers, caminhodoc, const FullType(String))
-            .toString());
+    final _path = r'/api/v1/matricula/dados/{id}'.replaceAll('{' r'id' '}',
+        encodeQueryParameter(_serializers, id, const FullType(int)).toString());
     final _options = Options(
-      method: r'GET',
-      responseType: ResponseType.bytes,
+      method: r'POST',
       headers: <String, dynamic>{
         ...?headers,
       },
@@ -382,11 +380,138 @@ class MatriculaControllerApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    Uint8List? _responseData;
+    return _response;
+  }
+
+  /// matriculaControllerGerarTermo
+  /// Gera o termo da matricula
+  ///
+  /// Parameters:
+  /// * [id]
+  /// * [nomeTutor]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future]
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<void>> matriculaControllerGerarTermo({
+    required int id,
+    required String nomeTutor,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/v1/matricula/termo/{id}'.replaceAll('{' r'id' '}',
+        encodeQueryParameter(_serializers, id, const FullType(int)).toString());
+    final _options = Options(
+      method: r'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _queryParameters = <String, dynamic>{
+      r'nomeTutor':
+          encodeQueryParameter(_serializers, nomeTutor, const FullType(String)),
+    };
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      queryParameters: _queryParameters,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    return _response;
+  }
+
+  /// matriculaControllerGetMatriculaVisualizar
+  /// Busca a quantidade de registros
+  ///
+  /// Parameters:
+  /// * [idMatricula]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [MatriculaVisualizarDTO] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<MatriculaVisualizarDTO>>
+      matriculaControllerGetMatriculaVisualizar({
+    required int idMatricula,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/v1/matricula/matricula-visualiza';
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _queryParameters = <String, dynamic>{
+      r'IdMatricula':
+          encodeQueryParameter(_serializers, idMatricula, const FullType(int)),
+    };
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      queryParameters: _queryParameters,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    MatriculaVisualizarDTO? _responseData;
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : rawResponse as Uint8List;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(MatriculaVisualizarDTO),
+            ) as MatriculaVisualizarDTO;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -397,7 +522,7 @@ class MatriculaControllerApi {
       );
     }
 
-    return Response<Uint8List>(
+    return Response<MatriculaVisualizarDTO>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -538,6 +663,112 @@ class MatriculaControllerApi {
     try {
       const _type = FullType(MatriculaDTO);
       _bodyData = _serializers.serialize(matriculaDTO, specifiedType: _type);
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    MatriculaDTO? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(MatriculaDTO),
+            ) as MatriculaDTO;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<MatriculaDTO>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// matriculaControllerIncluirComDocumentos
+  /// Busca a quantidade de registros
+  ///
+  /// Parameters:
+  /// * [dto]
+  /// * [files]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [MatriculaDTO] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<MatriculaDTO>> matriculaControllerIncluirComDocumentos({
+    required MatriculaDTO dto,
+    required BuiltList<MultipartFile> files,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/v1/matricula/inclusao-com-docs';
+    final _options = Options(
+      method: r'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      contentType: 'multipart/form-data',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      _bodyData = FormData.fromMap(<String, dynamic>{
+        r'dto': encodeFormParameter(
+            _serializers, dto, const FullType(MatriculaDTO)),
+        r'files': files.toList(),
+      });
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -760,6 +991,388 @@ class MatriculaControllerApi {
     );
   }
 
+  /// matriculaControllerListAllPageMatriculaListagemDTO
+  /// Busca a quantidade de registros
+  ///
+  /// Parameters:
+  /// * [offset]
+  /// * [pageSize]
+  /// * [statusMatricula]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [BuiltList<MatriculaListagemDTO>] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<BuiltList<MatriculaListagemDTO>>>
+      matriculaControllerListAllPageMatriculaListagemDTO({
+    required int offset,
+    required int pageSize,
+    required String statusMatricula,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path =
+        r'/api/v1/matricula/listar-matriculas-status-pagination/{offset}/{pageSize}'
+            .replaceAll(
+                '{' r'offset' '}',
+                encodeQueryParameter(_serializers, offset, const FullType(int))
+                    .toString())
+            .replaceAll(
+                '{' r'pageSize' '}',
+                encodeQueryParameter(
+                        _serializers, pageSize, const FullType(int))
+                    .toString());
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _queryParameters = <String, dynamic>{
+      r'statusMatricula': encodeQueryParameter(
+          _serializers, statusMatricula, const FullType(String)),
+    };
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      queryParameters: _queryParameters,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    BuiltList<MatriculaListagemDTO>? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType:
+                  const FullType(BuiltList, [FullType(MatriculaListagemDTO)]),
+            ) as BuiltList<MatriculaListagemDTO>;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<BuiltList<MatriculaListagemDTO>>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// matriculaControllerListarAlunosPorTurma
+  /// Busca a quantidade de registros
+  ///
+  /// Parameters:
+  /// * [idTurma]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [BuiltList<MatriculaListagemDTO>] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<BuiltList<MatriculaListagemDTO>>>
+      matriculaControllerListarAlunosPorTurma({
+    required int idTurma,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/v1/matricula/listar-por-turma';
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _queryParameters = <String, dynamic>{
+      r'idTurma':
+          encodeQueryParameter(_serializers, idTurma, const FullType(int)),
+    };
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      queryParameters: _queryParameters,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    BuiltList<MatriculaListagemDTO>? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType:
+                  const FullType(BuiltList, [FullType(MatriculaListagemDTO)]),
+            ) as BuiltList<MatriculaListagemDTO>;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<BuiltList<MatriculaListagemDTO>>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// matriculaControllerListarMatriculasListagemPorStatus
+  /// Busca a quantidade de registros
+  ///
+  /// Parameters:
+  /// * [statusMatricula]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [BuiltList<MatriculaListagemDTO>] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<BuiltList<MatriculaListagemDTO>>>
+      matriculaControllerListarMatriculasListagemPorStatus({
+    required String statusMatricula,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/v1/matricula/listar-matriculas-status';
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _queryParameters = <String, dynamic>{
+      r'statusMatricula': encodeQueryParameter(
+          _serializers, statusMatricula, const FullType(String)),
+    };
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      queryParameters: _queryParameters,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    BuiltList<MatriculaListagemDTO>? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType:
+                  const FullType(BuiltList, [FullType(MatriculaListagemDTO)]),
+            ) as BuiltList<MatriculaListagemDTO>;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<BuiltList<MatriculaListagemDTO>>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// matriculaControllerObterDocumentoMatricula
+  /// Busca a quantidade de registros
+  ///
+  /// Parameters:
+  /// * [documentoMatriculaDTO]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [Uint8List] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<Uint8List>> matriculaControllerObterDocumentoMatricula({
+    required DocumentoMatriculaDTO documentoMatriculaDTO,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/v1/matricula/obter-documento';
+    final _options = Options(
+      method: r'POST',
+      responseType: ResponseType.bytes,
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      contentType: 'application/json',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(DocumentoMatriculaDTO);
+      _bodyData =
+          _serializers.serialize(documentoMatriculaDTO, specifiedType: _type);
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    Uint8List? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : rawResponse as Uint8List;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<Uint8List>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
   /// matriculaControllerObterPorId
   /// Obter os dados completos de uma entidiade pelo id informado!
   ///
@@ -832,6 +1445,164 @@ class MatriculaControllerApi {
     }
 
     return Response<MatriculaDTO>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// matriculaControllerQuantidadeMatriculasPorStatus
+  /// Busca a quantidade de registros
+  ///
+  /// Parameters:
+  /// * [statusMatricula]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [int] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<int>> matriculaControllerQuantidadeMatriculasPorStatus({
+    required String statusMatricula,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/v1/matricula/quantidade-status';
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _queryParameters = <String, dynamic>{
+      r'statusMatricula': encodeQueryParameter(
+          _serializers, statusMatricula, const FullType(String)),
+    };
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      queryParameters: _queryParameters,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    int? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : rawResponse as int;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<int>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// matriculaControllerQuantidadeTotalMatriculas
+  /// Busca a quantidade de registros
+  ///
+  /// Parameters:
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [int] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<int>> matriculaControllerQuantidadeTotalMatriculas({
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/v1/matricula/quantidade-total';
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'bearerAuth',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    int? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : rawResponse as int;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<int>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -1235,7 +2006,7 @@ class MatriculaControllerApi {
   }
 
   /// matriculaControllerUploadDocumento
-  ///
+  /// Busca a quantidade de registros
   ///
   /// Parameters:
   /// * [idMatricula]
@@ -1261,7 +2032,7 @@ class MatriculaControllerApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/v1/matricula/documentos';
+    final _path = r'/api/v1/matricula/documento';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -1349,103 +2120,11 @@ class MatriculaControllerApi {
     );
   }
 
-  /// matriculaControllerUploadTermo
-  ///
-  ///
-  /// Parameters:
-  /// * [cpfCrianca]
-  /// * [chavePub]
-  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
-  /// * [headers] - Can be used to add additional headers to the request
-  /// * [extras] - Can be used to add flags to the request
-  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
-  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
-  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
-  ///
-  /// Returns a [Future] containing a [Response] with a [MatriculaDTO] as data
-  /// Throws [DioException] if API call or serialization fails
-  Future<Response<MatriculaDTO>> matriculaControllerUploadTermo({
-    required String cpfCrianca,
-    required String chavePub,
-    CancelToken? cancelToken,
-    Map<String, dynamic>? headers,
-    Map<String, dynamic>? extra,
-    ValidateStatus? validateStatus,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    final _path = r'/api/v1/matricula/termo';
-    final _options = Options(
-      method: r'POST',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
-      extra: <String, dynamic>{
-        'secure': <Map<String, String>>[
-          {
-            'type': 'http',
-            'scheme': 'bearer',
-            'name': 'bearerAuth',
-          },
-        ],
-        ...?extra,
-      },
-      validateStatus: validateStatus,
-    );
-
-    final _queryParameters = <String, dynamic>{
-      r'cpfCrianca': encodeQueryParameter(
-          _serializers, cpfCrianca, const FullType(String)),
-      r'chavePub':
-          encodeQueryParameter(_serializers, chavePub, const FullType(String)),
-    };
-
-    final _response = await _dio.request<Object>(
-      _path,
-      options: _options,
-      queryParameters: _queryParameters,
-      cancelToken: cancelToken,
-      onSendProgress: onSendProgress,
-      onReceiveProgress: onReceiveProgress,
-    );
-
-    MatriculaDTO? _responseData;
-
-    try {
-      final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(MatriculaDTO),
-            ) as MatriculaDTO;
-    } catch (error, stackTrace) {
-      throw DioException(
-        requestOptions: _response.requestOptions,
-        response: _response,
-        type: DioExceptionType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-
-    return Response<MatriculaDTO>(
-      data: _responseData,
-      headers: _response.headers,
-      isRedirect: _response.isRedirect,
-      requestOptions: _response.requestOptions,
-      redirects: _response.redirects,
-      statusCode: _response.statusCode,
-      statusMessage: _response.statusMessage,
-      extra: _response.extra,
-    );
-  }
-
-  /// matriculaControllerUploadTermoValidar
+  /// matriculaControllerUploadDocumentos
   /// Busca a quantidade de registros
   ///
   /// Parameters:
-  /// * [cpfCrianca]
+  /// * [idMatricula]
   /// * [multipartFile]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -1456,9 +2135,9 @@ class MatriculaControllerApi {
   ///
   /// Returns a [Future] containing a [Response] with a [MatriculaDTO] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<MatriculaDTO>> matriculaControllerUploadTermoValidar({
-    required String cpfCrianca,
-    MultipartFile? multipartFile,
+  Future<Response<MatriculaDTO>> matriculaControllerUploadDocumentos({
+    required int idMatricula,
+    BuiltList<MultipartFile>? multipartFile,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -1466,7 +2145,7 @@ class MatriculaControllerApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/v1/matricula/validarTermo';
+    final _path = r'/api/v1/matricula/documentos';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -1487,15 +2166,15 @@ class MatriculaControllerApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      r'cpfCrianca': encodeQueryParameter(
-          _serializers, cpfCrianca, const FullType(String)),
+      r'idMatricula':
+          encodeQueryParameter(_serializers, idMatricula, const FullType(int)),
     };
 
     dynamic _bodyData;
 
     try {
       _bodyData = FormData.fromMap(<String, dynamic>{
-        if (multipartFile != null) r'multipartFile': multipartFile,
+        if (multipartFile != null) r'multipartFile': multipartFile.toList(),
       });
     } catch (error, stackTrace) {
       throw DioException(
@@ -1553,7 +2232,7 @@ class MatriculaControllerApi {
   }
 
   /// matriculaControllerValidaMatricula
-  ///
+  /// Busca a quantidade de registros
   ///
   /// Parameters:
   /// * [matriculaDTO]

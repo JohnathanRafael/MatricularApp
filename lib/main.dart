@@ -6,12 +6,13 @@ import 'package:routefly/routefly.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../routes.dart';
 import 'app/api/AppApi.dart';
+import 'app/turma/turmaList_page.dart';
 import 'app/utils/ConfigState.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   // url.set(prefs.getString('http://10.200.15.201:8080') ?? 'http://192.168.3.8:8080');
-  await SecureStorage().setURL("http://192.168.3.8:8080");
+  await SecureStorage().setURL("http://10.200.15.201:8080");
 
   final state = ConfigState();
 
@@ -23,7 +24,10 @@ Future<void> main() async{
           Provider(create: (_) => state,
             dispose: (_, instance) => instance.dispose() ,),
           Provider(create: (_) => appAPI,
-            dispose: (_, instance) => instance.dispose(),)
+            dispose: (_, instance) => instance.dispose(),),
+          ChangeNotifierProvider(
+            create: (_) => ListaProviderTurma(),
+          ),
         ],
         child: const MyApp(),
       )

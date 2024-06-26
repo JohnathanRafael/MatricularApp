@@ -13,7 +13,6 @@ part 'necessidade_especial_dto.g.dart';
 /// Properties:
 /// * [id]
 /// * [titulo]
-/// * [observacoes]
 @BuiltValue()
 abstract class NecessidadeEspecialDTO
     implements Built<NecessidadeEspecialDTO, NecessidadeEspecialDTOBuilder> {
@@ -22,9 +21,6 @@ abstract class NecessidadeEspecialDTO
 
   @BuiltValueField(wireName: r'titulo')
   String? get titulo;
-
-  @BuiltValueField(wireName: r'observacoes')
-  String? get observacoes;
 
   NecessidadeEspecialDTO._();
 
@@ -70,13 +66,6 @@ class _$NecessidadeEspecialDTOSerializer
         specifiedType: const FullType(String),
       );
     }
-    if (object.observacoes != null) {
-      yield r'observacoes';
-      yield serializers.serialize(
-        object.observacoes,
-        specifiedType: const FullType(String),
-      );
-    }
   }
 
   @override
@@ -115,13 +104,6 @@ class _$NecessidadeEspecialDTOSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.titulo = valueDes;
-          break;
-        case r'observacoes':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.observacoes = valueDes;
           break;
         default:
           unhandled.add(key);

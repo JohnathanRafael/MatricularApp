@@ -69,9 +69,6 @@ const DocumentoMatriculaDTOTipoDocumentoEnum
 const DocumentoMatriculaDTOTipoDocumentoEnum
     _$documentoMatriculaDTOTipoDocumentoEnum_dECLARACAOESCOLART2 =
     const DocumentoMatriculaDTOTipoDocumentoEnum._('dECLARACAOESCOLART2');
-const DocumentoMatriculaDTOTipoDocumentoEnum
-    _$documentoMatriculaDTOTipoDocumentoEnum_cERTIDAOESTADOCIVIL2 =
-    const DocumentoMatriculaDTOTipoDocumentoEnum._('cERTIDAOESTADOCIVIL2');
 
 DocumentoMatriculaDTOTipoDocumentoEnum
     _$documentoMatriculaDTOTipoDocumentoEnumValueOf(String name) {
@@ -118,10 +115,8 @@ DocumentoMatriculaDTOTipoDocumentoEnum
       return _$documentoMatriculaDTOTipoDocumentoEnum_dECLARACAOESCOLART1;
     case 'dECLARACAOESCOLART2':
       return _$documentoMatriculaDTOTipoDocumentoEnum_dECLARACAOESCOLART2;
-    case 'cERTIDAOESTADOCIVIL2':
-      return _$documentoMatriculaDTOTipoDocumentoEnum_cERTIDAOESTADOCIVIL2;
     default:
-      return _$documentoMatriculaDTOTipoDocumentoEnum_cERTIDAOESTADOCIVIL2;
+      return _$documentoMatriculaDTOTipoDocumentoEnum_dECLARACAOESCOLART2;
   }
 }
 
@@ -149,7 +144,6 @@ final BuiltSet<DocumentoMatriculaDTOTipoDocumentoEnum>
   _$documentoMatriculaDTOTipoDocumentoEnum_cOMPROVANTETRABALHOT2,
   _$documentoMatriculaDTOTipoDocumentoEnum_dECLARACAOESCOLART1,
   _$documentoMatriculaDTOTipoDocumentoEnum_dECLARACAOESCOLART2,
-  _$documentoMatriculaDTOTipoDocumentoEnum_cERTIDAOESTADOCIVIL2,
 ]);
 
 Serializer<DocumentoMatriculaDTOTipoDocumentoEnum>
@@ -180,7 +174,6 @@ class _$DocumentoMatriculaDTOTipoDocumentoEnumSerializer
     'cOMPROVANTETRABALHOT2': 'COMPROVANTE_TRABALHO_T2',
     'dECLARACAOESCOLART1': 'DECLARACAO_ESCOLART1',
     'dECLARACAOESCOLART2': 'DECLARACAO_ESCOLART2',
-    'cERTIDAOESTADOCIVIL2': 'CERTIDAO_ESTADO_CIVIL2',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
     'FOTO_CRIANCA': 'FOTO_CRIANCA',
@@ -204,7 +197,6 @@ class _$DocumentoMatriculaDTOTipoDocumentoEnumSerializer
     'COMPROVANTE_TRABALHO_T2': 'cOMPROVANTETRABALHOT2',
     'DECLARACAO_ESCOLART1': 'dECLARACAOESCOLART1',
     'DECLARACAO_ESCOLART2': 'dECLARACAOESCOLART2',
-    'CERTIDAO_ESTADO_CIVIL2': 'cERTIDAOESTADOCIVIL2',
   };
 
   @override
@@ -237,8 +229,6 @@ class _$DocumentoMatriculaDTO extends DocumentoMatriculaDTO {
   final bool? aceito;
   @override
   final String? caminhoDocumento;
-  @override
-  final Uint8List? arquivo;
 
   factory _$DocumentoMatriculaDTO(
           [void Function(DocumentoMatriculaDTOBuilder)? updates]) =>
@@ -248,8 +238,7 @@ class _$DocumentoMatriculaDTO extends DocumentoMatriculaDTO {
       {this.tipoDocumento,
       this.idMatricula,
       this.aceito,
-      this.caminhoDocumento,
-      this.arquivo})
+      this.caminhoDocumento})
       : super._();
 
   @override
@@ -268,8 +257,7 @@ class _$DocumentoMatriculaDTO extends DocumentoMatriculaDTO {
         tipoDocumento == other.tipoDocumento &&
         idMatricula == other.idMatricula &&
         aceito == other.aceito &&
-        caminhoDocumento == other.caminhoDocumento &&
-        arquivo == other.arquivo;
+        caminhoDocumento == other.caminhoDocumento;
   }
 
   @override
@@ -279,7 +267,6 @@ class _$DocumentoMatriculaDTO extends DocumentoMatriculaDTO {
     _$hash = $jc(_$hash, idMatricula.hashCode);
     _$hash = $jc(_$hash, aceito.hashCode);
     _$hash = $jc(_$hash, caminhoDocumento.hashCode);
-    _$hash = $jc(_$hash, arquivo.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -290,8 +277,7 @@ class _$DocumentoMatriculaDTO extends DocumentoMatriculaDTO {
           ..add('tipoDocumento', tipoDocumento)
           ..add('idMatricula', idMatricula)
           ..add('aceito', aceito)
-          ..add('caminhoDocumento', caminhoDocumento)
-          ..add('arquivo', arquivo))
+          ..add('caminhoDocumento', caminhoDocumento))
         .toString();
   }
 }
@@ -319,10 +305,6 @@ class DocumentoMatriculaDTOBuilder
   set caminhoDocumento(String? caminhoDocumento) =>
       _$this._caminhoDocumento = caminhoDocumento;
 
-  Uint8List? _arquivo;
-  Uint8List? get arquivo => _$this._arquivo;
-  set arquivo(Uint8List? arquivo) => _$this._arquivo = arquivo;
-
   DocumentoMatriculaDTOBuilder() {
     DocumentoMatriculaDTO._defaults(this);
   }
@@ -334,7 +316,6 @@ class DocumentoMatriculaDTOBuilder
       _idMatricula = $v.idMatricula;
       _aceito = $v.aceito;
       _caminhoDocumento = $v.caminhoDocumento;
-      _arquivo = $v.arquivo;
       _$v = null;
     }
     return this;
@@ -360,8 +341,7 @@ class DocumentoMatriculaDTOBuilder
             tipoDocumento: tipoDocumento,
             idMatricula: idMatricula,
             aceito: aceito,
-            caminhoDocumento: caminhoDocumento,
-            arquivo: arquivo);
+            caminhoDocumento: caminhoDocumento);
     replace(_$result);
     return _$result;
   }

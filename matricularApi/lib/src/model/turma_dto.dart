@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:matricular/src/model/matricula_listagem_dto.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -21,6 +22,7 @@ part 'turma_dto.g.dart';
 /// * [horaFim]
 /// * [telefoneProfessor]
 /// * [quantidadeAlunos]
+/// * [alunos]
 @BuiltValue()
 abstract class TurmaDTO implements Built<TurmaDTO, TurmaDTOBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -34,7 +36,7 @@ abstract class TurmaDTO implements Built<TurmaDTO, TurmaDTOBuilder> {
 
   @BuiltValueField(wireName: r'turno')
   TurmaDTOTurnoEnum? get turno;
-  // enum turnoEnum {  MATUTINO,  VESPERTINO,  NOTURNO,  };
+  // enum turnoEnum {  MATUTINO,  VESPERTINO,  INTEGRAL,  };
 
   @BuiltValueField(wireName: r'ano')
   int? get ano;
@@ -50,6 +52,9 @@ abstract class TurmaDTO implements Built<TurmaDTO, TurmaDTOBuilder> {
 
   @BuiltValueField(wireName: r'quantidadeAlunos')
   int? get quantidadeAlunos;
+
+  @BuiltValueField(wireName: r'alunos')
+  BuiltList<MatriculaListagemDTO>? get alunos;
 
   TurmaDTO._();
 
@@ -135,6 +140,14 @@ class _$TurmaDTOSerializer implements PrimitiveSerializer<TurmaDTO> {
       yield serializers.serialize(
         object.quantidadeAlunos,
         specifiedType: const FullType(int),
+      );
+    }
+    if (object.alunos != null) {
+      yield r'alunos';
+      yield serializers.serialize(
+        object.alunos,
+        specifiedType:
+            const FullType(BuiltList, [FullType(MatriculaListagemDTO)]),
       );
     }
   }
@@ -225,6 +238,14 @@ class _$TurmaDTOSerializer implements PrimitiveSerializer<TurmaDTO> {
           ) as int;
           result.quantidadeAlunos = valueDes;
           break;
+        case r'alunos':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(BuiltList, [FullType(MatriculaListagemDTO)]),
+          ) as BuiltList<MatriculaListagemDTO>;
+          result.alunos.replace(valueDes);
+          break;
         default:
           unhandled.add(key);
           unhandled.add(value);
@@ -259,8 +280,8 @@ class TurmaDTOTurnoEnum extends EnumClass {
   static const TurmaDTOTurnoEnum MATUTINO = _$turmaDTOTurnoEnum_MATUTINO;
   @BuiltValueEnumConst(wireName: r'VESPERTINO')
   static const TurmaDTOTurnoEnum VESPERTINO = _$turmaDTOTurnoEnum_VESPERTINO;
-  @BuiltValueEnumConst(wireName: r'NOTURNO', fallback: true)
-  static const TurmaDTOTurnoEnum NOTURNO = _$turmaDTOTurnoEnum_NOTURNO;
+  @BuiltValueEnumConst(wireName: r'INTEGRAL', fallback: true)
+  static const TurmaDTOTurnoEnum INTEGRAL = _$turmaDTOTurnoEnum_INTEGRAL;
 
   static Serializer<TurmaDTOTurnoEnum> get serializer =>
       _$turmaDTOTurnoEnumSerializer;

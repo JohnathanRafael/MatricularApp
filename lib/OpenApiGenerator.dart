@@ -1,4 +1,4 @@
-// Openapi Generator last run: : 2024-05-08T20:03:13.676098
+// Openapi Generator last run: : 2024-06-14T21:05:36.945673
 
 import 'dart:isolate';
 

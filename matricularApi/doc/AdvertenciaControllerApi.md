@@ -10,11 +10,14 @@ All URIs are relative to *http://localhost:8080*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**advertenciaControllerAlterar**](AdvertenciaControllerApi.md#advertenciacontrolleralterar) | **PUT** /api/v1/advertencia/{id} | 
+[**advertenciaControllerAlterarAdvertencia**](AdvertenciaControllerApi.md#advertenciacontrolleralteraradvertencia) | **PUT** /api/v1/advertencia/alterar-advertencia/{id-matricula}/{numero-advertencia} | 
 [**advertenciaControllerIncluir**](AdvertenciaControllerApi.md#advertenciacontrollerincluir) | **POST** /api/v1/advertencia | 
 [**advertenciaControllerListAll**](AdvertenciaControllerApi.md#advertenciacontrollerlistall) | **GET** /api/v1/advertencia | 
 [**advertenciaControllerListAllPage**](AdvertenciaControllerApi.md#advertenciacontrollerlistallpage) | **GET** /api/v1/advertencia/page | 
+[**advertenciaControllerObterAdvertencia**](AdvertenciaControllerApi.md#advertenciacontrollerobteradvertencia) | **GET** /api/v1/advertencia/obter-advertencia/{id-matricula}/{numero-advertencia} | 
 [**advertenciaControllerObterPorId**](AdvertenciaControllerApi.md#advertenciacontrollerobterporid) | **GET** /api/v1/advertencia/{id} | 
 [**advertenciaControllerRemover**](AdvertenciaControllerApi.md#advertenciacontrollerremover) | **DELETE** /api/v1/advertencia/{id} | 
+[**advertenciaControllerRemoverAdvertencia**](AdvertenciaControllerApi.md#advertenciacontrollerremoveradvertencia) | **DELETE** /api/v1/advertencia/remover-advertencia/{id-matricula}/{numero-advertencia} | 
 [**advertenciaControllerSearchFieldsAction**](AdvertenciaControllerApi.md#advertenciacontrollersearchfieldsaction) | **POST** /api/v1/advertencia/search-fields | 
 [**advertenciaControllerSearchFieldsActionPage**](AdvertenciaControllerApi.md#advertenciacontrollersearchfieldsactionpage) | **POST** /api/v1/advertencia/search-fields/page | 
 [**advertenciaControllerSearchFieldsList**](AdvertenciaControllerApi.md#advertenciacontrollersearchfieldslist) | **GET** /api/v1/advertencia/search-fields | 
@@ -48,6 +51,53 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**PkAdvertencia**](.md)|  | 
+ **advertenciaDTO** | [**AdvertenciaDTO**](AdvertenciaDTO.md)|  | 
+
+### Return type
+
+[**AdvertenciaDTO**](AdvertenciaDTO.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **advertenciaControllerAlterarAdvertencia**
+> AdvertenciaDTO advertenciaControllerAlterarAdvertencia(idMatricula, numeroAdvertencia, advertenciaDTO)
+
+
+
+Remove alunos da turma
+
+### Example
+```dart
+import 'package:matricular/api.dart';
+
+final api = Matricular().getAdvertenciaControllerApi();
+final int idMatricula = 789; // int | 
+final int numeroAdvertencia = 789; // int | 
+final AdvertenciaDTO advertenciaDTO = ; // AdvertenciaDTO | 
+
+try {
+    final response = api.advertenciaControllerAlterarAdvertencia(idMatricula, numeroAdvertencia, advertenciaDTO);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling AdvertenciaControllerApi->advertenciaControllerAlterarAdvertencia: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **idMatricula** | **int**|  | 
+ **numeroAdvertencia** | **int**|  | 
  **advertenciaDTO** | [**AdvertenciaDTO**](AdvertenciaDTO.md)|  | 
 
 ### Return type
@@ -190,6 +240,51 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **advertenciaControllerObterAdvertencia**
+> AdvertenciaDTO advertenciaControllerObterAdvertencia(idMatricula, numeroAdvertencia)
+
+
+
+Remove alunos da turma
+
+### Example
+```dart
+import 'package:matricular/api.dart';
+
+final api = Matricular().getAdvertenciaControllerApi();
+final int idMatricula = 789; // int | 
+final int numeroAdvertencia = 789; // int | 
+
+try {
+    final response = api.advertenciaControllerObterAdvertencia(idMatricula, numeroAdvertencia);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling AdvertenciaControllerApi->advertenciaControllerObterAdvertencia: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **idMatricula** | **int**|  | 
+ **numeroAdvertencia** | **int**|  | 
+
+### Return type
+
+[**AdvertenciaDTO**](AdvertenciaDTO.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **advertenciaControllerObterPorId**
 > AdvertenciaDTO advertenciaControllerObterPorId(id)
 
@@ -260,6 +355,51 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**PkAdvertencia**](.md)|  | 
+
+### Return type
+
+[**AdvertenciaDTO**](AdvertenciaDTO.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **advertenciaControllerRemoverAdvertencia**
+> AdvertenciaDTO advertenciaControllerRemoverAdvertencia(idMatricula, numeroAdvertencia)
+
+
+
+Remove alunos da turma
+
+### Example
+```dart
+import 'package:matricular/api.dart';
+
+final api = Matricular().getAdvertenciaControllerApi();
+final int idMatricula = 789; // int | 
+final int numeroAdvertencia = 789; // int | 
+
+try {
+    final response = api.advertenciaControllerRemoverAdvertencia(idMatricula, numeroAdvertencia);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling AdvertenciaControllerApi->advertenciaControllerRemoverAdvertencia: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **idMatricula** | **int**|  | 
+ **numeroAdvertencia** | **int**|  | 
 
 ### Return type
 

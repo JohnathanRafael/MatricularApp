@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **nome** | **String** |  | [optional] 
 **status** | **String** |  | [optional] 
 **nascimento** | [**Date**](Date.md) |  | [optional] 
-**enderecoId** | **int** |  | [optional] 
+**endereco** | [**EnderecoDTO**](EnderecoDTO.md) |  | [optional] 
 **tutorDTOList** | [**BuiltList&lt;TutorDTO&gt;**](TutorDTO.md) |  | [optional] 
 **necessidades** | [**BuiltList&lt;NecessidadeEspecialDTO&gt;**](NecessidadeEspecialDTO.md) |  | [optional] 
 **responsaveis** | [**BuiltList&lt;ResponsavelDTO&gt;**](ResponsavelDTO.md) |  | [optional] 

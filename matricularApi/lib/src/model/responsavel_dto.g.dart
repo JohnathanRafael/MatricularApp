@@ -16,6 +16,10 @@ const ResponsavelDTOVinculoEnum _$responsavelDTOVinculoEnum_VIZINHO =
     const ResponsavelDTOVinculoEnum._('VIZINHO');
 const ResponsavelDTOVinculoEnum _$responsavelDTOVinculoEnum_AVO =
     const ResponsavelDTOVinculoEnum._('AVO');
+const ResponsavelDTOVinculoEnum _$responsavelDTOVinculoEnum_TIA =
+    const ResponsavelDTOVinculoEnum._('TIA');
+const ResponsavelDTOVinculoEnum _$responsavelDTOVinculoEnum_BISAVO =
+    const ResponsavelDTOVinculoEnum._('BISAVO');
 
 ResponsavelDTOVinculoEnum _$responsavelDTOVinculoEnumValueOf(String name) {
   switch (name) {
@@ -29,8 +33,12 @@ ResponsavelDTOVinculoEnum _$responsavelDTOVinculoEnumValueOf(String name) {
       return _$responsavelDTOVinculoEnum_VIZINHO;
     case 'AVO':
       return _$responsavelDTOVinculoEnum_AVO;
+    case 'TIA':
+      return _$responsavelDTOVinculoEnum_TIA;
+    case 'BISAVO':
+      return _$responsavelDTOVinculoEnum_BISAVO;
     default:
-      return _$responsavelDTOVinculoEnum_AVO;
+      return _$responsavelDTOVinculoEnum_BISAVO;
   }
 }
 
@@ -41,6 +49,8 @@ final BuiltSet<ResponsavelDTOVinculoEnum> _$responsavelDTOVinculoEnumValues =
   _$responsavelDTOVinculoEnum_TIO,
   _$responsavelDTOVinculoEnum_VIZINHO,
   _$responsavelDTOVinculoEnum_AVO,
+  _$responsavelDTOVinculoEnum_TIA,
+  _$responsavelDTOVinculoEnum_BISAVO,
 ]);
 
 Serializer<ResponsavelDTOVinculoEnum> _$responsavelDTOVinculoEnumSerializer =
@@ -54,6 +64,8 @@ class _$ResponsavelDTOVinculoEnumSerializer
     'TIO': 'TIO',
     'VIZINHO': 'VIZINHO',
     'AVO': 'AVO',
+    'TIA': 'TIA',
+    'BISAVO': 'BISAVO',
   };
   static const Map<Object, String> _fromWire = const <Object, String>{
     'PAI': 'PAI',
@@ -61,6 +73,8 @@ class _$ResponsavelDTOVinculoEnumSerializer
     'TIO': 'TIO',
     'VIZINHO': 'VIZINHO',
     'AVO': 'AVO',
+    'TIA': 'TIA',
+    'BISAVO': 'BISAVO',
   };
 
   @override
@@ -94,8 +108,6 @@ class _$ResponsavelDTO extends ResponsavelDTO {
   final ResponsavelDTOVinculoEnum? vinculo;
   @override
   final bool? tutor;
-  @override
-  final String? chavePub;
 
   factory _$ResponsavelDTO([void Function(ResponsavelDTOBuilder)? updates]) =>
       (new ResponsavelDTOBuilder()..update(updates))._build();
@@ -106,8 +118,7 @@ class _$ResponsavelDTO extends ResponsavelDTO {
       this.idMatricula,
       this.nomeMatricula,
       this.vinculo,
-      this.tutor,
-      this.chavePub})
+      this.tutor})
       : super._();
 
   @override
@@ -127,8 +138,7 @@ class _$ResponsavelDTO extends ResponsavelDTO {
         idMatricula == other.idMatricula &&
         nomeMatricula == other.nomeMatricula &&
         vinculo == other.vinculo &&
-        tutor == other.tutor &&
-        chavePub == other.chavePub;
+        tutor == other.tutor;
   }
 
   @override
@@ -140,7 +150,6 @@ class _$ResponsavelDTO extends ResponsavelDTO {
     _$hash = $jc(_$hash, nomeMatricula.hashCode);
     _$hash = $jc(_$hash, vinculo.hashCode);
     _$hash = $jc(_$hash, tutor.hashCode);
-    _$hash = $jc(_$hash, chavePub.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -153,8 +162,7 @@ class _$ResponsavelDTO extends ResponsavelDTO {
           ..add('idMatricula', idMatricula)
           ..add('nomeMatricula', nomeMatricula)
           ..add('vinculo', vinculo)
-          ..add('tutor', tutor)
-          ..add('chavePub', chavePub))
+          ..add('tutor', tutor))
         .toString();
   }
 }
@@ -190,10 +198,6 @@ class ResponsavelDTOBuilder
   bool? get tutor => _$this._tutor;
   set tutor(bool? tutor) => _$this._tutor = tutor;
 
-  String? _chavePub;
-  String? get chavePub => _$this._chavePub;
-  set chavePub(String? chavePub) => _$this._chavePub = chavePub;
-
   ResponsavelDTOBuilder() {
     ResponsavelDTO._defaults(this);
   }
@@ -207,7 +211,6 @@ class ResponsavelDTOBuilder
       _nomeMatricula = $v.nomeMatricula;
       _vinculo = $v.vinculo;
       _tutor = $v.tutor;
-      _chavePub = $v.chavePub;
       _$v = null;
     }
     return this;
@@ -235,8 +238,7 @@ class ResponsavelDTOBuilder
             idMatricula: idMatricula,
             nomeMatricula: nomeMatricula,
             vinculo: vinculo,
-            tutor: tutor,
-            chavePub: chavePub);
+            tutor: tutor);
     replace(_$result);
     return _$result;
   }

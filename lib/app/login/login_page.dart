@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:matricular/matricular.dart';
 import 'package:matricular_login/AlertMessage.dart';
 import 'package:matricular_login/routes.dart';
@@ -69,10 +70,10 @@ class _LoginForm extends State<LoginForm> {
   late AppAPI appAPI;
   late Matricular matricularAPI;
 
-  // Future<void> fetchSecureStorageData() async {
-  //    _secureStorage.getUserToken() ?? '';
-  // }
-
+  var maskFormatterCPF = MaskTextInputFormatter(
+    mask: '000.000.000-00',
+    filter: {"0": RegExp(r'[0-9]')},
+  );
 
   String? _validarCPF(String? text){
     //implementar aqui validacao de CPF
@@ -93,12 +94,8 @@ class _LoginForm extends State<LoginForm> {
   }
 
   _clickLogin(BuildContext context) async {
-    final CPF = _CPF.text;
-    final senha = _Senha.text;
     AlertMessage alertMessage = AlertMessage();
     _camposErros.clear();
-
-    print("Login: $CPF , Senha: $senha " );
 
     if(_formKey.currentState != null){
       // se o form validate for invalido
@@ -115,7 +112,7 @@ class _LoginForm extends State<LoginForm> {
         final authApi = matricularAPI.getAuthAPIApi();
 
         var authoDTObuilder = AuthDTOBuilder();
-        authoDTObuilder.login = _CPF.text;
+        authoDTObuilder.login = _CPF.text.replaceAll(RegExp(r'[^\d]'), '');
         authoDTObuilder.senha = _Senha.text;
 
 
@@ -133,7 +130,7 @@ class _LoginForm extends State<LoginForm> {
           print(e);
           showDialog(context: context,
             builder: (context){
-              return alertMessage.alertaLogin(_camposErros, "Usuário não encontrado no sistema", "Usuário inválido",context);
+              return alertMessage.alertaLogin(_camposErros, "Senha ou cpf incorretos", "Erro",context);
             },
           );
         };
@@ -182,9 +179,11 @@ class _LoginForm extends State<LoginForm> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'CPF',
+                            label: const Text("CPF")
                         ),
                         controller: _CPF,
                         validator: _validarCPF,
+                        inputFormatters: [maskFormatterCPF],
                       ),
                     ),
                   ),
@@ -197,6 +196,7 @@ class _LoginForm extends State<LoginForm> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Senha',
+                            label: const Text("Senha")
                         ),
                           controller: _Senha,
                           validator: _validarSenha,

@@ -12,27 +12,27 @@ part 'informacoes_matricula_dto.g.dart';
 ///
 /// Properties:
 /// * [id]
-/// * [esteveOutraCreche]
-/// * [razaoSaidaCreche]
+/// * [frequentouOutraCreche]
+/// * [razaoSaida]
 /// * [tipoResidencia]
 /// * [valorAluguel]
-/// * [beneficiarioGoverno]
+/// * [possuiBeneficiosDoGoverno]
 /// * [valorBeneficio]
 /// * [rendaFamiliar]
-/// * [paisCasados]
-/// * [moramJuntos]
 /// * [observacao]
+/// * [possuiVeiculoProprio]
+/// * [possuiEcaminhamentoCRAS]
 @BuiltValue()
 abstract class InformacoesMatriculaDTO
     implements Built<InformacoesMatriculaDTO, InformacoesMatriculaDTOBuilder> {
   @BuiltValueField(wireName: r'id')
   int? get id;
 
-  @BuiltValueField(wireName: r'esteveOutraCreche')
-  bool? get esteveOutraCreche;
+  @BuiltValueField(wireName: r'frequentouOutraCreche')
+  bool? get frequentouOutraCreche;
 
-  @BuiltValueField(wireName: r'razaoSaidaCreche')
-  String? get razaoSaidaCreche;
+  @BuiltValueField(wireName: r'razaoSaida')
+  String? get razaoSaida;
 
   @BuiltValueField(wireName: r'tipoResidencia')
   String? get tipoResidencia;
@@ -40,8 +40,8 @@ abstract class InformacoesMatriculaDTO
   @BuiltValueField(wireName: r'valorAluguel')
   int? get valorAluguel;
 
-  @BuiltValueField(wireName: r'beneficiarioGoverno')
-  bool? get beneficiarioGoverno;
+  @BuiltValueField(wireName: r'possuiBeneficiosDoGoverno')
+  bool? get possuiBeneficiosDoGoverno;
 
   @BuiltValueField(wireName: r'valorBeneficio')
   int? get valorBeneficio;
@@ -49,14 +49,14 @@ abstract class InformacoesMatriculaDTO
   @BuiltValueField(wireName: r'rendaFamiliar')
   num? get rendaFamiliar;
 
-  @BuiltValueField(wireName: r'paisCasados')
-  bool? get paisCasados;
-
-  @BuiltValueField(wireName: r'moramJuntos')
-  bool? get moramJuntos;
-
   @BuiltValueField(wireName: r'observacao')
   String? get observacao;
+
+  @BuiltValueField(wireName: r'possuiVeiculoProprio')
+  bool? get possuiVeiculoProprio;
+
+  @BuiltValueField(wireName: r'possuiEcaminhamentoCRAS')
+  bool? get possuiEcaminhamentoCRAS;
 
   InformacoesMatriculaDTO._();
 
@@ -95,17 +95,17 @@ class _$InformacoesMatriculaDTOSerializer
         specifiedType: const FullType(int),
       );
     }
-    if (object.esteveOutraCreche != null) {
-      yield r'esteveOutraCreche';
+    if (object.frequentouOutraCreche != null) {
+      yield r'frequentouOutraCreche';
       yield serializers.serialize(
-        object.esteveOutraCreche,
+        object.frequentouOutraCreche,
         specifiedType: const FullType(bool),
       );
     }
-    if (object.razaoSaidaCreche != null) {
-      yield r'razaoSaidaCreche';
+    if (object.razaoSaida != null) {
+      yield r'razaoSaida';
       yield serializers.serialize(
-        object.razaoSaidaCreche,
+        object.razaoSaida,
         specifiedType: const FullType(String),
       );
     }
@@ -123,10 +123,10 @@ class _$InformacoesMatriculaDTOSerializer
         specifiedType: const FullType(int),
       );
     }
-    if (object.beneficiarioGoverno != null) {
-      yield r'beneficiarioGoverno';
+    if (object.possuiBeneficiosDoGoverno != null) {
+      yield r'possuiBeneficiosDoGoverno';
       yield serializers.serialize(
-        object.beneficiarioGoverno,
+        object.possuiBeneficiosDoGoverno,
         specifiedType: const FullType(bool),
       );
     }
@@ -144,25 +144,25 @@ class _$InformacoesMatriculaDTOSerializer
         specifiedType: const FullType(num),
       );
     }
-    if (object.paisCasados != null) {
-      yield r'paisCasados';
-      yield serializers.serialize(
-        object.paisCasados,
-        specifiedType: const FullType(bool),
-      );
-    }
-    if (object.moramJuntos != null) {
-      yield r'moramJuntos';
-      yield serializers.serialize(
-        object.moramJuntos,
-        specifiedType: const FullType(bool),
-      );
-    }
     if (object.observacao != null) {
       yield r'observacao';
       yield serializers.serialize(
         object.observacao,
         specifiedType: const FullType(String),
+      );
+    }
+    if (object.possuiVeiculoProprio != null) {
+      yield r'possuiVeiculoProprio';
+      yield serializers.serialize(
+        object.possuiVeiculoProprio,
+        specifiedType: const FullType(bool),
+      );
+    }
+    if (object.possuiEcaminhamentoCRAS != null) {
+      yield r'possuiEcaminhamentoCRAS';
+      yield serializers.serialize(
+        object.possuiEcaminhamentoCRAS,
+        specifiedType: const FullType(bool),
       );
     }
   }
@@ -197,19 +197,19 @@ class _$InformacoesMatriculaDTOSerializer
           ) as int;
           result.id = valueDes;
           break;
-        case r'esteveOutraCreche':
+        case r'frequentouOutraCreche':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(bool),
           ) as bool;
-          result.esteveOutraCreche = valueDes;
+          result.frequentouOutraCreche = valueDes;
           break;
-        case r'razaoSaidaCreche':
+        case r'razaoSaida':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.razaoSaidaCreche = valueDes;
+          result.razaoSaida = valueDes;
           break;
         case r'tipoResidencia':
           final valueDes = serializers.deserialize(
@@ -225,12 +225,12 @@ class _$InformacoesMatriculaDTOSerializer
           ) as int;
           result.valorAluguel = valueDes;
           break;
-        case r'beneficiarioGoverno':
+        case r'possuiBeneficiosDoGoverno':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(bool),
           ) as bool;
-          result.beneficiarioGoverno = valueDes;
+          result.possuiBeneficiosDoGoverno = valueDes;
           break;
         case r'valorBeneficio':
           final valueDes = serializers.deserialize(
@@ -246,26 +246,26 @@ class _$InformacoesMatriculaDTOSerializer
           ) as num;
           result.rendaFamiliar = valueDes;
           break;
-        case r'paisCasados':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.paisCasados = valueDes;
-          break;
-        case r'moramJuntos':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.moramJuntos = valueDes;
-          break;
         case r'observacao':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.observacao = valueDes;
+          break;
+        case r'possuiVeiculoProprio':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.possuiVeiculoProprio = valueDes;
+          break;
+        case r'possuiEcaminhamentoCRAS':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.possuiEcaminhamentoCRAS = valueDes;
           break;
         default:
           unhandled.add(key);
