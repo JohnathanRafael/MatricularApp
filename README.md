@@ -1,4 +1,4 @@
-Um aplicaivo simples desenvolvido em Flutter para a disciplina de Desenvolvimento Mobile na Universidade Estadual de Goiás, implementa uma funcionalidade básica de entrar em contato com um professor da Associação Sagrada Família. Utiliza Open API para facilitar a comunicação com o Backend.
+
 
 # matricular_login
 
